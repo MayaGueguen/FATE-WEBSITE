@@ -1,0 +1,50 @@
+---
+title: "FATE-HD : Publications"
+output:
+  html_document:
+    theme: cerulean
+    highlight: zenburn
+    number_sections: no
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+
+<br/>
+<br/>
+
+# BioMove {.tabset .tabset-fade .tabset-pills} 
+
+<br/>
+
+## 2010 - Midgley (Ecography)
+
+<br/>
+
+# FATE-HD model {.tabset .tabset-fade .tabset-pills} 
+
+<br/>
+
+## 2012 - Boulangeat (Global Change Biology)
+
+<br/>
+
+
+## 2014 - Boulangeat (Global Change Biology)
+
+<br/>
+
+
+# Applications {.tabset .tabset-fade .tabset-pills} 
+
+<br/>
+
+## Ceres
+
+## Ceres
+
+## Carboni
+
+## Thuiller

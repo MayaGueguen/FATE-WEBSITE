@@ -1,0 +1,47 @@
+
+name: "FATE-HD"
+
+navbar:
+  title: "FATE-HD"
+  type: inverse
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "About FATE"
+      icon: fa-info
+      href: about.html
+    - text: "Publications"
+      icon: ion-document-text
+      href: publications.html
+    - text: ""
+    - text: "Tutorials"
+      icon: ion-settings
+      menu:
+        - text: "Installation"
+        - text: "Get FATE-HD"
+          href: 1a_fate-hd_tutorial_INSTALLATION.html
+        - text: "---------"
+        - text: "Getting started"
+        - text: "Page C"
+          href: page_c.html
+        - text: "Page D"
+          href: page_d.html
+        - text: "---------"
+        - text: "Datasets"
+        - text: "Page C"
+          href: page_c.html
+    - text: "Graphics"
+      icon: ion-ios-pulse-strong
+      href: graphics.html
+  right:
+    - icon: fa-question fa-lg
+      href: https://example.com
+      
+output:
+  html_document:
+    theme: cerulean
+    highlight: zenburn
+    include:
+      after_body: _footer.html
+    css: styles.css
