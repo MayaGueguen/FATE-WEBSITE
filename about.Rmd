@@ -1,9 +1,0 @@
----
-title: "FATE-HD"
----
-
-
-More about this website.
-
-```{r, child="_sessioninfo.Rmd"}
-```

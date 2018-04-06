@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="LECA Grenoble" />
+
+<meta name="date" content="2016-10-05" />
+
+<title>FATE-HD tutorial - Installation</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">FATE-HD</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="publications.html">
+    <span class="ion ion-document-text"></span>
+     
+    Publications
+  </a>
+</li>
+<li class="dropdown-header"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-settings"></span>
+     
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Installation</li>
+    <li>
+      <a href="1a_fate-hd_tutorial_INSTALLATION.html">Get FATE-HD</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Getting started</li>
+    <li class="dropdown-header">Page C</li>
+    <li class="dropdown-header">Page D</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Datasets</li>
+    <li class="dropdown-header">Page C</li>
+  </ul>
+</li>
+<li>
+  <a href="graphics.html">
+    <span class="ion ion-ios-pulse-strong"></span>
+     
+    Graphics
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a>
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://sourceforge.net/projects/biomove/">
+    <span class="fa fa-code"></span>
+     
+    SourceForge
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">FATE-HD tutorial - Installation</h1>
+<h4 class="author"><em>LECA Grenoble</em></h4>
+<h4 class="date"><em>10/05/2016</em></h4>
+
+</div>
+
+
+<p>“<em>The recurring suggestions are that models should explicitly (i) include spatiotemporal dynamics; (ii) consider multiple species in interactions and (iii) account for the processes shaping biodiversity distribution.</em>”</p>
+<p><code>FATE-HD</code> is a “<em>a biodiversity model that meets this challenge at regional scale by combining phenomenological and process-based approaches and using well-defined plant functional group</em>”. (<a href="http://www.will.chez-alice.fr/pdf/BoulangeatGCB2014.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
+<div id="before-starting" class="section level1">
+<h1><span class="header-section-number">1</span> Before starting</h1>
+<p>This tutorial has been designed for a <code>UNIX</code> based platform. It should fit with all <code>linux</code> distributions and with slight modifications with <code>mac</code> OS. Some files and links are given to install the program on <code>Windows</code> but some adaptations might be needed.</p>
+<p><br/></p>
+<ul>
+<li>As <code>FATE-HD</code> depends on
+<ul>
+<li><a href="http://www.openmp.org/">openMP</a> and <a href="https://www.boost.org/">boost</a> libraries,</li>
+<li><a href="http://www.gdal.org/," title="Geospatial Data Abstraction Library">GDAL</a></li>
+<li>XCode <a href="https://developer.apple.com/xcode/">Command Line Tools</a> (for <code>mac</code> OS),</li>
+<li>and needs a compiler (either <a href="https://gcc.gnu.org/">gcc</a> preferentially or <a href="http://clang.llvm.org/">clang</a>),</li>
+</ul></li>
+<li>and due to the difficulty to provide a valid installation procedure <em>for each <code>mac</code> version</em>,</li>
+</ul>
+<p>we decided to</p>
+<ul>
+<li>try to <strong>provide directly the binary files for UNIX and mac OS</strong></li>
+<li>provide with the sources the supplementary files for <a href="http://www.openmp.org/">openMP</a>, <a href="https://www.boost.org/">boost</a> and <a href="http://www.gdal.org/," title="Geospatial Data Abstraction Library">GDAL</a> libraries :<br />
+in that way, only a compiler should be installed (and <a href="http://www.gtk.org/">GTK-3.0</a> for the graphical interface) to recompile the program if needed.</li>
+</ul>
+<p><br/></p>
+<p>We detail below 3 cases</p>
+<ol style="list-style-type: decimal">
+<li>the <strong>easy way</strong> : retrieve directly the binary files</li>
+<li>the <strong>harder-but-not-so-much way</strong> : get a compiler to recompile from sources</li>
+<li>the <strong>extrem way</strong> with indications to install all needed libraries depending on the OS</li>
+</ol>
+<p>Please keep in mind that in any case, <strong>sources are completely available on the <a href="https://sourceforge.net/projects/biomove/">project source forge page</a></strong>.</p>
+</div>
+<div id="installation-easy-way-get-binaries" class="section level1">
+<h1><span class="header-section-number">2</span> Installation : Easy way : Get binaries</h1>
+<p>Files can be obtained from the <a href="https://sourceforge.net/projects/biomove/">project source forge page</a>, by using the <a href="https://subversion.apache.org/">svn</a> solution.</p>
+<p>Open a terminal and create a working directory :</p>
+<pre class="shell"><code>mkdir fatehd_tutorial
+cd fatehd_tutorial</code></pre>
+<p>Then type :</p>
+<pre class="shell"><code>svn checkout svn://svn.code.sf.net/p/biomove/code/FATEHDD_STABLE/BINARIES/ ./FATE_BinaryFiles/</code></pre>
+<p>You should now have all the last stable <code>FATE-HD</code> binary files. Use the one corresponding to your OS.</p>
+</div>
+<div id="installation-harder-but-not-so-much-way-compile-sources" class="section level1">
+<h1><span class="header-section-number">3</span> Installation : Harder-but-not-so-much way : Compile sources</h1>
+<div id="get-package-source-code" class="section level3">
+<h3><span class="header-section-number">3.0.1</span> Get package source code ————————</h3>
+<p>Open a terminal and create a working directory :</p>
+<pre class="shell"><code>mkdir fatehd_tutorial
+cd fatehd_tutorial</code></pre>
+<p>Then type :</p>
+<pre class="shell"><code>svn checkout svn://svn.code.sf.net/p/biomove/code/FATEHDD_STABLE/ ./fateHD_source/</code></pre>
+<p><strong>NOTE :</strong> This tutorial is based on the latest stable version of the software available at the moment of writing. All following explanations will be based on this release.<br />
+If you wish to download any specific version, you can run the following line of code (outcommented with ##) and specifying the version number (here, you want the 138th revision) :</p>
+<pre class="shell"><code>## svn checkout -r 138 svn://svn.code.sf.net/p/biomove/code/STABLE/ fateHD_source</code></pre>
+<p>You should have a directory called <em>fateHD_source</em> :</p>
+<pre class="shell"><code>ls</code></pre>
+</div>
+<div id="check-for-c-compiler" class="section level3">
+<h3><span class="header-section-number">3.0.2</span> Check for c++ compiler ————————</h3>
+<p><code>FATE-HD</code> is written in <code>c++</code> so we need an adapted compiler to be able to produce binaries. Here we choose to work with <a href="https://gcc.gnu.org/">gcc / g++</a>.</p>
+<p><strong>On linux OS</strong>, it should be available by default but you can check by typing :</p>
+<pre class="shell"><code>g++ -v</code></pre>
+<p>It should print you some details on which version of <code>gcc/g++</code> is installed.</p>
+<p>If you get <code>g++: unknown commande</code> message, type the following commands to install <code>gcc/g++</code> version 4.8 :</p>
+<pre class="shell"><code>sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-4.8 g++-4.8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8</code></pre>
+<p><strong>On mac OS</strong>, <code>g++</code> is generally available through <a href="https://www.macports.org/">Macports</a> and <code>xcode Command Line Tools</code> :</p>
+<ul>
+<li><code>MacPorts</code> can be downloaded from <a href="https://www.macports.org/install.php">this webpage</a> by selecting your version of OS X<br />
+(<em>this installation can take a long time</em>).</li>
+<li><p><code>xcode Command Line Tools</code> can be install by typing :</p>
+<pre class="shell"><code>xcode-select --install</code></pre>
+<p>You can choose to install only the <code>Command Line Tools</code> (and not complete <a href="https://developer.apple.com/xcode/">xcode</a>).</p></li>
+</ul>
+<p>Then check installation of <code>g++</code> typing <code>g++ -v</code> (see above). If you don’t :</p>
+<pre class="shell"><code>sudo port install gcc48</code></pre>
+<p><strong>NOTE :</strong> <strong>The gcc version depends on your mac version!</strong><br />
+Here, as an example, <code>gcc 4.8</code> works for <code>mac Mavericks (10.9)</code>.</p>
+<p>Even after having installed <code>gcc</code>, it might not be the default compiler defined on your computer. Typing <code>g++ -v</code> might still indicate you <code>clang</code> as default. The following command should indicate you which versions of <code>gcc</code> are available on your computer and which one is active (if <code>clang</code> is the default compiler, it should be <em>none</em> selected) :</p>
+<pre class="shell"><code>port select --list gcc</code></pre>
+<p>To select <code>gcc 4.8</code>, run the command:</p>
+<pre class="shell"><code>sudo port select --set gcc mp-gcc48</code></pre>
+<p>Now typing <code>g++ -v</code> should give you the right answer (at least the one we want!).</p>
+<p><strong>On windows OS</strong>, you can install it from directory <em>fateHD_source/SUPP_MAT/INSTALL_SOFT/GCC/</em> with the file <code>tdm64-gcc-5.1.0-2.exe</code>.</p>
+<p><strong>NOTE :</strong> The <code>C++</code> code depends on a version which works only with <code>gcc</code> version &gt;= <code>4.7</code>. If you install a version anterior to this one (but we strongly advise you not to), you will just need to make a slight adjustement into the compilation file.</p>
+<pre class="shell"><code>cd fateHD_source/MAKEFILES/</code></pre>
+<p>Open the files corresponding to your OS, search for the element : <strong><code>-std=c++11</code></strong> and replace it with <strong><code>-std=c++0x</code></strong>. That’s it.</p>
+</div>
+<div id="check-for-gtk-3.0" class="section level3">
+<h3><span class="header-section-number">3.0.3</span> Check for GTK+-3.0 ————————</h3>
+<p><strong>This is needed onl if you want to compile and use the graphical interface.</strong></p>
+<p><strong>On linux OS</strong>, you can install it by typing :</p>
+<pre class="shell"><code>sudo apt-get install libgtk-3-dev</code></pre>
+<p><strong>On mac OS</strong>, you can install it from directory <em>fateHD_source/SUPP_MAT/INSTALL_SOFT/GTK/</em> :</p>
+<ul>
+<li>extract <code>gtk+-bundle_3.6.4_20130630_macosx.tar.bz2</code></li>
+<li>create a folder named <em>gtk3</em> at the root</li>
+<li>copy all the files within this directory</li>
+</ul>
+<p><strong>On windows OS</strong>, you can install it from directory <em>fateHD_source/SUPP_MAT/INSTALL_SOFT/GTK/</em> :</p>
+<ul>
+<li>extract <code>gtk+-bundle_3.6.4-20130513_win64.zip</code></li>
+<li>create a folder named <em>gtk3</em> at the root</li>
+<li>copy all the files within this directory</li>
+</ul>
+</div>
+<div id="compile-sources" class="section level3">
+<h3><span class="header-section-number">3.0.4</span> Compile sources ————————</h3>
+<p>Once you have successfully installed your c++ compiler, you should be able to create <code>FATE-HD</code> binaries.</p>
+<p><strong>On linux or mac OS</strong>,</p>
+<pre class="shell"><code>cd fateHD_source/
+chmod +x FateHD_compilation.sh
+./FateHD_compilation.sh</code></pre>
+<p><strong>On windows OS</strong>, open a MinGW command prompt and type :</p>
+<pre class="shell"><code>cd fateHD_source/
+mingw32-gcc -f MAKEFILES/MakefileWindows
+mingw32-gcc -f MAKEFILES/MakefileWindows_GTK</code></pre>
+<p><em>——————————————</em></p>
+<p>If it succeeds, you should have a new binary file in the <em>fateHD_source/BINARIES/</em> directory. The file name takes into account the OS system, and the <code>FATE-HD</code> version (for example : <em>FATEHDD_6.0-0_UNIX</em>).</p>
+<pre class="shell"><code>ls ./BINARIES/</code></pre>
+<p>Let’s copy this file in our working directory (but note that you will always need to copy this file in your working directories, e.g. in the following tutorial exercises) :</p>
+<pre class="shell"><code>cd ..
+cp fateHD_source/BINARIES/FATEHDD_6.0-0_UNIX ./</code></pre>
+<p>At this step you have a functional version of the latest stable version of <code>FATE-HD</code>.</p>
+</div>
+</div>
+<div id="installation-extrem-way-install-all-libraries" class="section level1">
+<h1><span class="header-section-number">4</span> Installation : Extrem way : Install all libraries</h1>
+<div id="check-for-boost-library" class="section level3">
+<h3><span class="header-section-number">4.0.1</span> Check for Boost library ————————</h3>
+<p><code>FATE-HD</code> needs the <a href="https://www.boost.org/">boost library</a>, which is a series of C++ source libraries, to be compiled and run.</p>
+<p><strong>On linux</strong> you should be able to install this library from official depot :</p>
+<pre class="shell"><code>sudo apt-get install libboost-all-dev</code></pre>
+<p><strong>On mac</strong> the installation if a little bit longer, because you have to build <code>boost</code> from files. (<code>Macports</code> provides an installation for <code>boost</code> but which is not complete, at least for what we need in our case…).</p>
+<p>From the <a href="http://sourceforge.net/projects/boost/files/boost/">boost GIT repository</a> :</p>
+<ol style="list-style-type: decimal">
+<li>select the <code>boost</code> version you want, and then download the <em>tar.gz</em> corresponding file ;</li>
+<li><p>unpack and go into the directory :</p>
+<pre class="shell"><code>tar -xzf boost_1_59_0.tar.gz
+cd boost_1_59_0</code></pre></li>
+<li><p>configure and build <em>bjam</em> :</p>
+<pre class="shell"><code>./bootstrap.sh --prefix=/opt/local/</code></pre></li>
+<li><p>build :</p>
+<pre class="shell"><code>./b2</code></pre></li>
+<li><p>install :</p>
+<pre class="shell"><code>./b2 install</code></pre></li>
+</ol>
+<p><strong>NOTE :</strong></p>
+<ul>
+<li>you then need to tell your <em>Makefile</em> where it can find the <code>boost</code> libraries and files :</li>
+<li><p>before running <code>FATE-HD</code>, you also need to remind your computer where are the <code>boost</code> libraries and files so the compiled software can also find them :</p>
+<pre class="shell"><code>export DYLD_LIBRARY_PATH=~/where/is/boost_1_59_0/lib/:$DYLD_LIBRARY_PATH</code></pre></li>
+</ul>
+</div>
+<div id="check-for-gdal-library" class="section level3">
+<h3><span class="header-section-number">4.0.2</span> Check for GDAL library ————————</h3>
+<p><strong>On linux</strong> you should be able to install this library from official depot :</p>
+<pre class="shell"><code>sudo apt-get install build-essential libgdal-dev</code></pre>
+<p><strong>On mac</strong> the installation if a little bit longer, because you have to install several modules. Successive steps are detailed below and can also be found <a href="https://sites.google.com/site/eospansite/installinggdalonmacosx">HERE</a>. The idea is to install the <a href="http://www.kyngchaos.com/software/frameworks">Unix Compatibility Frameworks</a> which includes various Unix image format and GIS libraries for <code>mac</code> OS.</p>
+<ol style="list-style-type: decimal">
+<li>Download <a href="https://sites.google.com/site/eospansite/installinggdalonmacosx">HERE</a> the <strong>GDAL complete</strong> framework.</li>
+<li>Open the <em>.dmg</em> file and install both <em>gdal.pkg</em> and <em>numpy.pkg</em> files.</li>
+<li><p>Open a terminal, write the command below and hit <em>Return</em> :</p>
+<pre class="shell"><code>export PATH=/Library/Frameworks/GDAL.framework/Programs:$PATH</code></pre></li>
+<li><p>To check for complete installation, type in the console :</p>
+<pre class="shell"><code>gdalinfo --version</code></pre></li>
+</ol>
+<p><strong>NOTE :</strong> you may have an error message if your <code>mac</code> version is prior to 10.8… No worries ! In that case, please follow the steps below :</p>
+<ol style="list-style-type: decimal">
+<li>You can find <a href="http://www.kyngchaos.com/software/archive">HERE</a> previous versions for the different modules that have to be installed, with indications about compatibilities with <code>mac</code> OS version. You need to download and install the following packages in the right order :
+<ul>
+<li>PROJ framework</li>
+<li>GEOS framework</li>
+<li>UnixImageIO framework</li>
+<li>SQLite3 framework</li>
+<li>GDAL framework</li>
+</ul></li>
+<li>For each, open the <em>.dmg</em> file and install the <em>.pkg</em> file.</li>
+<li><p>Open a terminal, write the command below and hit <em>Return</em> :</p>
+<pre class="shell"><code>export PATH=/Library/Frameworks/GDAL.framework/Programs:$PATH</code></pre></li>
+<li><p>To check for complete installation, type in the console :</p>
+<pre class="shell"><code>gdalinfo --version</code></pre></li>
+</ol>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1><span class="header-section-number">5</span> Conclusion</h1>
+<p>This document is just meant to present the installation of <code>FATE-HD</code>. Other documents will present and detail examples of <code>FATE-HD</code> simulations and utilization.</p>
+<p>This document is in the alpha version so any comment is more than welcome. If you have any question relative to <code>FATE-HD</code> or if you encounter some issue to run your simulation you should send a mail to <code>FATE-HD</code> help mailing list at <a href="">fate-hd@googlegroups.com</a>.</p>
+</div>
+
+<p>Copyright &copy; 2016 Skynet, Inc. All rights reserved.</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

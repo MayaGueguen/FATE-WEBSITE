@@ -1,5 +1,6 @@
 
 name: "FATE-HD"
+output_dir: "."
 
 navbar:
   title: "FATE-HD"
@@ -47,4 +48,6 @@ output:
     highlight: zenburn
     include:
       after_body: _footer.html
-    css: styles.css
+    #css: styles.css
+    lib_dir: site_libs
+    
