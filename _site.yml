@@ -40,7 +40,7 @@ navbar:
       
 output:
   html_document:
-    theme: cerulean
+    theme: lumen
     highlight: zenburn
     include:
       after_body: _footer.html

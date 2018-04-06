@@ -4,7 +4,7 @@ author: "LECA Grenoble"
 date: "10/05/2016"
 output:
   html_document:
-    theme: cerulean
+    theme: lumen
     highlight: zenburn
     number_sections: yes
     toc: yes

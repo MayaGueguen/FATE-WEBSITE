@@ -1,8 +1,7 @@
 ---
-title: "FATE-HD : Publications"
 output:
   html_document:
-    theme: cerulean
+    theme: lumen
     highlight: zenburn
     number_sections: no
     toc: yes
@@ -15,36 +14,59 @@ output:
 <br/>
 <br/>
 
-# BioMove {.tabset .tabset-fade .tabset-pills} 
+# [BioMove]()
 
 <br/>
 
-## 2010 - Midgley (Ecography)
+<a href="papers/Midgley_2010_Ecography.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2010_Midgley_Ecography.png" alt="Midgley 2010 Ecography" style="width:500px">
+</a>
 
 <br/>
 
-# FATE-HD model {.tabset .tabset-fade .tabset-pills} 
+- Midgley, G. F., Davies, I. D., Albert, C. H., Altwegg, R. , Hannah, L. , Hughes, G. O., O'Halloran, L. R., Seo, C. , Thorne, J. H. and Thuiller, W. (2010), BioMove – an integrated platform simulating the dynamic response of species to environmental change. Ecography, 33: 612-616. https://doi:10.1111/j.1600-0587.2009.06000.x
 
 <br/>
 
-## 2012 - Boulangeat (Global Change Biology)
+# [FATE-HD model]()
 
 <br/>
 
-
-## 2014 - Boulangeat (Global Change Biology)
+<a href="papers/Boulangeat_2012_GCB.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2012_Boulangeat_GCB.png" alt="Boulangeat 2012 Global Change Biology" style="width:350px">
+</a>
+<a href="papers/Boulangeat_2014_GCB.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2014_Boulangeat_GCB.png" alt="Boulangeat 2014 Global Change Biology" style="width:350px">
+</a>
 
 <br/>
 
-
-# Applications {.tabset .tabset-fade .tabset-pills} 
+- Boulangeat, I. , Philippe, P. , Abdulhak, S. , Douzet, R. , Garraud, L. , Lavergne, S. , Lavorel, S. , Van Es, J. , Vittoz, P. and Thuiller, W. (2012), Improving plant functional groups for dynamic models of biodiversity: at the crossroads between functional and community ecology. Glob Change Biol, 18: 3464-3475. https://doi:10.1111/j.1365-2486.2012.02783.x
+- Boulangeat, I. , Georges, D. and Thuiller, W. (2014), FATE‐HD: a spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Glob Change Biol, 20: 2368-2378. https://doi:10.1111/gcb.12466
 
 <br/>
 
-## Ceres
+# [Applications]()
 
-## Ceres
+<br/>
 
-## Carboni
+<a href="papers/Thuiller_2017_Diversity_Distributions.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2017_Thuiller_DD.png" alt="Thuiller 2017 Diversity Distributions" style="width:350px">
+</a>
+<a href="papers/Carboni_2017_Global_Change_Biology.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2017_Carboni_GCB.png" alt="Carboni 2017 Global Change Biology" style="width:350px">
+</a>
+<a href="papers/Barros_2017_Journal_Applied_Ecology.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2017_Barros_JAE.png" alt="Barros 2017 Journal of Applied Ecology" style="width:350px">
+</a>
+<a href="papers/Barros_2016_Ecology_Letters.pdf" class="download" title="Download as PDF">
+<img src="pictures/art_2016_Barros_EL.png" alt="Barros 2016 Ecology Letters" style="width:350px">
+</a>
 
-## Thuiller
+<br/>
+
+- Barros, C. , Thuiller, W. , Georges, D. , Boulangeat, I. , Münkemüller, T. and Bellwood, D. (2016), N‐dimensional hypervolumes to study stability of complex ecosystems. Ecol Lett, 19: 729-742. https://doi:10.1111/ele.12617
+- Barros, C. , Guéguen, M. , Douzet, R. , Carboni, M. , Boulangeat, I. , Zimmermann, N. E., Münkemüller, T. , Thuiller, W. and Mori, A. (2017), Extreme climate events counteract the effects of climate and land‐use changes in Alpine tree lines. J Appl Ecol, 54: 39-50. https://doi:10.1111/1365-2664.12742
+- Carboni M, Guéguen M, Barros C, et al. Simulating plant invasion dynamics in mountain ecosystems under global change scenarios. Glob Change Biol. 2018;24:e289–e302. https://doi.org/10.1111/gcb.13879
+- Thuiller W, Guéguen M, Bison M, et al. Combining point‐process and landscape vegetation models to predict large herbivore distributions in space and time—A case study of Rupicapra rupicapra. Divers Distrib. 2018;24:352–362. https://doi.org/10.1111/ddi.12684
+
