@@ -11,7 +11,7 @@
 
 
 
-<title>FATE-HD</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,55 +19,14 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
-td.sourceCode { padding-left: 5px; }
-pre, code { color: #cccccc; background-color: #303030; }
-code > span.kw { color: #f0dfaf; } /* Keyword */
-code > span.dt { color: #dfdfbf; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
-code > span.bn { color: #dca3a3; } /* BaseN */
-code > span.fl { color: #c0bed1; } /* Float */
-code > span.ch { color: #dca3a3; } /* Char */
-code > span.st { color: #cc9393; } /* String */
-code > span.co { color: #7f9f7f; } /* Comment */
-code > span.ot { color: #efef8f; } /* Other */
-code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
-code > span.er { color: #c3bf9f; } /* Error */
-code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code > span.sc { color: #dca3a3; } /* SpecialChar */
-code > span.vs { color: #cc9393; } /* VerbatimString */
-code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
-code > span.op { color: #f0efd0; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code > span.at { } /* Attribute */
-code > span.do { color: #7f9f7f; } /* Documentation */
-code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
@@ -192,6 +151,107 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
@@ -218,6 +278,13 @@ $(document).ready(function () {
     <span class="ion ion-document-text"></span>
      
     Publications
+  </a>
+</li>
+<li>
+  <a href="framework.html">
+    <span class="fa fa-cogs"></span>
+     
+    Modelling Framework
   </a>
 </li>
 <li class="dropdown-header"></li>
@@ -274,42 +341,60 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">FATE-HD</h1>
 
 </div>
 
 
-<p>More about this website.</p>
-<p>Session information:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
-<pre><code>## R version 3.4.3 (2017-11-30)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 14.04.5 LTS
-## 
-## Matrix products: default
-## BLAS: /usr/lib/libblas/libblas.so.3.0
-## LAPACK: /usr/lib/lapack/liblapack.so.3.0
-## 
-## locale:
-##  [1] LC_CTYPE=fr_FR.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=fr_FR.UTF-8        LC_COLLATE=fr_FR.UTF-8    
-##  [5] LC_MONETARY=fr_FR.UTF-8    LC_MESSAGES=fr_FR.UTF-8   
-##  [7] LC_PAPER=fr_FR.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=fr_FR.UTF-8 LC_IDENTIFICATION=C       
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## loaded via a namespace (and not attached):
-##  [1] compiler_3.4.3  backports_1.1.2 magrittr_1.5    rprojroot_1.3-2
-##  [5] tools_3.4.3     htmltools_0.3.6 yaml_2.1.18     Rcpp_0.12.16   
-##  [9] stringi_1.1.7   rmarkdown_1.9   knitr_1.20      stringr_1.3.0  
-## [13] digest_0.6.15   evaluate_0.10.1</code></pre>
+<p><br/> <br/></p>
+<div id="global-view" class="section level2">
+<h2>Global view</h2>
+<p><br/></p>
+<div id="conceptual-diagram-of-fate-hd" class="section level3">
+<h3>Conceptual diagram of <code>FATE-HD</code></h3>
+<p>The whole area is divided in grid-cells in which an independent <strong>succession model A)</strong> regulates the PFG life cycle. PFG abundances are structured by age into cohorts and each cohort is attributed to a height stratum according to the growth parameters.</p>
+<p>Four submodels affect this cycle at various levels :</p>
+<p><strong>B) Shading</strong> regulates interactions between cohorts affecting germination, recruitment and survival.</p>
+<p><strong>C) Habitat suitability</strong> affects the recruitment and fecundity rates.</p>
+<p><strong>D) The seed dispersal model</strong> makes <code>FATE-HD</code> spatially explicit by connecting grid-cells.<br />
+It depends on the amount of seeds produced by mature plants and affects each PFG’s seed bank in each cell.</p>
+<p><strong>E) Disturbances</strong> affect PFG survival and fecundity.</p>
+<p><br/></p>
+<p><img src="pictures/FATE_loop_1.png" alt="Global scheme" style="width:800px;"></p>
+<p><br/><br/></p>
+</div>
+<div id="life-cycle-of-each-pfg-within-fate-hd-and-influences-from-sub-models" class="section level3">
+<h3>Life cycle of each PFG within <code>FATE-HD</code> and influences from sub-models</h3>
+<p>Only three age classes are considered : germinant, juvenile and mature.</p>
+<p>The <strong>recruitment</strong> is influenced by the habitat suitability and the biotic interactions.</p>
+<p><strong>Mortality</strong> occurs when light conditions are not favorable or when the PFG completes its life span.</p>
+<p>In addition, the disturbance regime directly affects juvenile or mature PFG and may for instance result in PFG death, impede <strong>seed production</strong> by reducing mature PFG age to N-1, or <strong>revitalize senescents</strong> by reducing their age to M-1.</p>
+<p><br/></p>
+<p><img src="pictures/FATE_loop_3.png" alt="Internal loop" style="width:800px;"></p>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="source-code" class="section level2">
+<h2>Source code</h2>
+<p><br/></p>
+<div id="class-diagram" class="section level3">
+<h3>Class diagram</h3>
+<p>A <code>FATE-HD</code> simulation is based on a map whose pixels each contain a succession model (<code>SuFate</code>). This model can depend or not on habitat suitability (<code>SuFateH</code>).</p>
+<p>All the pixels are linked together by the dispersal model (<code>Disp</code>).</p>
+<p>Input parameters are given to the software via the simulation parameter file (<code>FilesOfParameters</code>) which contain global (<code>GlobalSimulParameters</code>) and PFG related parameters as well as maps. All of these informations are read and included into the model using templates for parameters (<code>Params</code>), constants (<code>FGutils</code>) and rasters (<code>Spatial</code>).</p>
+<p><br/></p>
+<p><img src="pictures/FATE_loop_4.png" alt="Class diagram" style="width:800px;"></p>
+</div>
+</div>
 
-<p>Copyright &copy; 2016 Skynet, Inc. All rights reserved.</p>
+<br/><br/><br/><br/>
+
+<p  style="text-align:center;"><i>Copyright &copy; 2018 Laboratoire d'Ecologie Alpine, Grenoble. All rights reserved.</i></p>
+
+<br/>
 
 
+</div>
+</div>
 
 </div>
 

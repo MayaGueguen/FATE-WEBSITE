@@ -1,0 +1,75 @@
+---
+output:
+  html_document:
+    theme: lumen
+    highlight: zenburn
+    number_sections: no
+    toc: yes
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+
+<br/>
+<br/>
+
+
+## Global view
+
+<br/>
+
+### Conceptual diagram of `FATE-HD`
+
+The whole area is divided in grid-cells in which an independent **succession model A)** regulates the PFG life cycle. 
+PFG abundances are structured by age into cohorts and each cohort is attributed to a height stratum according to the growth parameters.
+
+Four submodels affect this cycle at various levels :
+
+**B) Shading** regulates interactions between cohorts affecting germination, recruitment and survival.
+
+**C) Habitat suitability** affects the recruitment and fecundity rates.
+
+**D) The seed dispersal model** makes `FATE-HD` spatially explicit by connecting grid-cells.  
+It depends on the amount of seeds produced by mature plants and affects each PFG’s seed bank in each cell.
+
+**E) Disturbances** affect PFG survival and fecundity.
+
+<br/>
+
+<img src="pictures/FATE_loop_1.png" alt="Global scheme" style="width:800px;">
+
+<br/><br/>
+
+### Life cycle of each PFG within `FATE-HD` and influences from sub-models
+
+Only three age classes are considered : germinant, juvenile and mature.
+
+The **recruitment** is influenced by the habitat suitability and the biotic interactions.
+
+**Mortality** occurs when light conditions are not favorable or when the PFG completes its life span.
+
+In addition, the disturbance regime directly affects juvenile or mature PFG and may for instance result in PFG death, impede **seed production** by reducing mature PFG age to N-1, or **revitalize senescents** by reducing their age to M-1.
+
+<br/>
+
+<img src="pictures/FATE_loop_3.png" alt="Internal loop" style="width:800px;">
+
+
+<br/><br/><br/>
+
+## Source code
+
+<br/>
+
+### Class diagram
+
+A `FATE-HD` simulation is based on a map whose pixels each contain a succession model (`SuFate`). This model can depend or not on habitat suitability (`SuFateH`).
+
+All the pixels are linked together by the dispersal model (`Disp`).
+
+Input parameters are given to the software via the simulation parameter file (`FilesOfParameters`) which contain global (`GlobalSimulParameters`) and PFG related parameters as well as maps. All of these informations are read and included into the model using templates for parameters (`Params`), constants (`FGutils`) and rasters (`Spatial`).
+
+<br/>
+
+<img src="pictures/FATE_loop_4.png" alt="Class diagram" style="width:800px;">
