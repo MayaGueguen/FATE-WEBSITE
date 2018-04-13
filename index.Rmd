@@ -27,7 +27,7 @@ Available publications retrace the "history" of the software, from past conceptu
 
 <br/>
 
-### [Modelling framework](https://mayagueguen.github.io/FATE-WEBSITE/publications.html) <img src="pictures/link.png" alt="Link to" style="width:20px;height:20px;">
+### [Modelling framework](https://mayagueguen.github.io/FATE-WEBSITE/framework.html) <img src="pictures/link.png" alt="Link to" style="width:20px;height:20px;">
 
 Theoretical concepts and implementation loops and methods are detailed in this section in order to help understanding how the model is built and how the software works.
 
