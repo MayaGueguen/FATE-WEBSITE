@@ -76,3 +76,131 @@ Input parameters are given to the software via the simulation parameter file (`F
 <br/>
 
 <img src="pictures/FATE_loop_4.png" alt="Class diagram" style="width:800px;">
+
+<br/><br/>
+
+
+### Structural equations
+
+<br/>
+
+
+#### Life cycle
+
+<br/>
+
+The succession model within `FATE-HD` describes the PFG demography with 5 processes :
+
+- germination
+- recruitment
+- growth
+- survival
+- fecundity
+
+Below are detailed these different steps, in the order in which they are executed within the model.  
+All the `getEnv...()` functions represent the influence of the habitat suitability if the `SuFateh` model is selected. These functions return either 1 or 0 depending if the habitat within the pixel is suitable or not for the considered PFG. They will influence of specific process, like mortality, recruitment or fecundity.
+
+<br/>
+
+1. **Lifespan :**  
+In theory, the lifetime of a species could be influenced by the environment.  
+Currently, habitat or not, $getEnvMort() = 1$.
+
+$$LifeSpan * getEnvMort()$$
+<br/>
+
+2. **Maturation time :**  
+The time at which a PFG is able to produce seeds can also be influenced by its habitat, in a negative way.  
+If it is the case (`SuFateh` model selected), then $maturation = LifeSpan$.  
+Which means there will be no fecundity, and then no seeds produced.
+
+ \begin{align}
+maturation &= (LifeSpan - Maturity) * (1.0 - getEnvGrowth()) + Maturity \\
+maturation &= ceil(maturation)
+\end{align}
+
+<br/>
+
+
+3. **Germination rate :**  
+The number of seeds available as well as the resource level in stratum 0 (which represents the enforced dormancy) allow to determine the proportion of seeds that will germinate.  
+
+$$GerminationRate = AvailSeeds * \frac{MaxRecruitment}{100}$$
+with $MaxRecruitment = getMaxRecruit(\text{strata 0}) =$ proportion of seeds that can germinate.
+
+<br/>
+
+4. **Recruitment rate :**  
+The establishment of the seeds that are able to germinate then depends on the ability of those germinants to withstand the conditions within stratum 0. If the habitat is not favorable, then the recruitment is null.
+
+\begin{align}
+&\text{if ( } abund < 10 * MaxAbund \text{ )} \\
+&\{ \\
+& RecruitmentRate = 1.0 * GerminationRate * (\frac{MaxAbund}{LifeSpan - Maturity}) * getEnvRecrRate() \\
+&\}
+\end{align}
+
+with $MaxAbund \in {1,2,3}$ and representing the maximum shade a PFG can produce in a pixel (i.e. similar to a number of individuals), proportionally to the number of strata it can occupy, taller PFG producing naturally more shade.
+
+The condition $abund < 10 * MaxAbund$ helps regulate populations : new individuals only grow if there is no too many individuals yet within the pixel.
+
+<br/>
+
+5. **Mature abundance :**  
+The number of mature individuals (i.e. whose age is between maturity and lifetime) is corrected by the maximum capacity of each PFG ($MaxAbund$).
+
+$$MatureAbund = \frac{getAbundBetween(maturation, LifeSpan)}{\frac{MaxAbund}{5}}$$
+<br/>
+
+6. **Fecundity :**  
+The new number of seeds that will be produced is also affected by the habitat. If the habitat is not favorable, then the fecundity is null and no seeds are produced.
+
+$$fecundity = min(1, MatureAbund) * PotentialFecund * getEnvFecund()$$
+with $PotentialFecund = 100$.  
+
+<br/> <br/>
+
+
+#### !! Code specificities !!
+
+<br/>
+
+- **Save raster abundances :**  
+The fraction must be $> 1$, meaning $totalNumAbund(pfg, stratum)$ must be $> GLOBAL\_HIGH\_ABUND$.
+
+\begin{align}
+Abund &= 10,000 * \frac{totalNumAbund(pfg, stratum)}{GLOBAL\_HIGH\_ABUND} \\
+Abund &= min(10,000, Abund)
+\end{align}
+
+
+<br/>
+
+- **Light of strata :**
+
+$$ImmSize * CohortSize * AgeRange$$
+with AgeRange = old - young, brkStra - young, old - MatAge, MatAge - young
+
+<br/>
+
+- **Simplify legions :**  
+Round abundances to save space, by setting size to :
+
+$$min(MAX\_BY\_COHORT, \frac{size(pfg, cohort) + 5000}{10,000^2})$$
+
+<br/>
+
+- **Set light resources :**
+
+\begin{align}
+&\text{if ( } abund < GLOBAL\_MEDIUM\_RESOURCES\_TRESH \text{ )} \\
+&\{ \\
+& light = HIGH \\
+&\} \text{ else if ( } abund < GLOBAL\_LOW\_RESOURCES\_TRESH \text{ )} \\
+&\{ \\
+& light = MEDIUM \\
+&\} \text{ else} \\
+&\{ \\
+& light = LOW \\
+&\}
+\end{align}

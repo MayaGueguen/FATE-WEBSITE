@@ -385,6 +385,112 @@ It depends on the amount of seeds produced by mature plants and affects each PFG
 <p>Input parameters are given to the software via the simulation parameter file (<code>FilesOfParameters</code>) which contain global (<code>GlobalSimulParameters</code>) and PFG related parameters as well as maps. All of these informations are read and included into the model using templates for parameters (<code>Params</code>), constants (<code>FGutils</code>) and rasters (<code>Spatial</code>).</p>
 <p><br/></p>
 <p><img src="pictures/FATE_loop_4.png" alt="Class diagram" style="width:800px;"></p>
+<p><br/><br/></p>
+</div>
+<div id="structural-equations" class="section level3">
+<h3>Structural equations</h3>
+<p><br/></p>
+<div id="life-cycle" class="section level4">
+<h4>Life cycle</h4>
+<p><br/></p>
+<p>The succession model within <code>FATE-HD</code> describes the PFG demography with 5 processes :</p>
+<ul>
+<li>germination</li>
+<li>recruitment</li>
+<li>growth</li>
+<li>survival</li>
+<li>fecundity</li>
+</ul>
+<p>Below are detailed these different steps, in the order in which they are executed within the model.<br />
+All the <code>getEnv...()</code> functions represent the influence of the habitat suitability if the <code>SuFateh</code> model is selected. These functions return either 1 or 0 depending if the habitat within the pixel is suitable or not for the considered PFG. They will influence of specific process, like mortality, recruitment or fecundity.</p>
+<p><br/></p>
+<ol style="list-style-type: decimal">
+<li><strong>Lifespan :</strong><br />
+In theory, the lifetime of a species could be influenced by the environment.<br />
+Currently, habitat or not, <span class="math inline">\(getEnvMort() = 1\)</span>.</li>
+</ol>
+<p><span class="math display">\[LifeSpan * getEnvMort()\]</span> <br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Maturation time :</strong><br />
+The time at which a PFG is able to produce seeds can also be influenced by its habitat, in a negative way.<br />
+If it is the case (<code>SuFateh</code> model selected), then <span class="math inline">\(maturation = LifeSpan\)</span>.<br />
+Which means there will be no fecundity, and then no seeds produced.</li>
+</ol>
+<span class="math display">\[\begin{align}
+maturation &amp;= (LifeSpan - Maturity) * (1.0 - getEnvGrowth()) + Maturity \\
+maturation &amp;= ceil(maturation)
+\end{align}\]</span>
+<p><br/></p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Germination rate :</strong><br />
+The number of seeds available as well as the resource level in stratum 0 (which represents the enforced dormancy) allow to determine the proportion of seeds that will germinate.</li>
+</ol>
+<p><span class="math display">\[GerminationRate = AvailSeeds * \frac{MaxRecruitment}{100}\]</span> with <span class="math inline">\(MaxRecruitment = getMaxRecruit(\text{strata 0}) =\)</span> proportion of seeds that can germinate.</p>
+<p><br/></p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Recruitment rate :</strong><br />
+The establishment of the seeds that are able to germinate then depends on the ability of those germinants to withstand the conditions within stratum 0. If the habitat is not favorable, then the recruitment is null.</li>
+</ol>
+<span class="math display">\[\begin{align}
+&amp;\text{if ( } abund &lt; 10 * MaxAbund \text{ )} \\
+&amp;\{ \\
+&amp; RecruitmentRate = 1.0 * GerminationRate * (\frac{MaxAbund}{LifeSpan - Maturity}) * getEnvRecrRate() \\
+&amp;\}
+\end{align}\]</span>
+<p>with <span class="math inline">\(MaxAbund \in {1,2,3}\)</span> and representing the maximum shade a PFG can produce in a pixel (i.e. similar to a number of individuals), proportionally to the number of strata it can occupy, taller PFG producing naturally more shade.</p>
+<p>The condition <span class="math inline">\(abund &lt; 10 * MaxAbund\)</span> helps regulate populations : new individuals only grow if there is no too many individuals yet within the pixel.</p>
+<p><br/></p>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Mature abundance :</strong><br />
+The number of mature individuals (i.e. whose age is between maturity and lifetime) is corrected by the maximum capacity of each PFG (<span class="math inline">\(MaxAbund\)</span>).</li>
+</ol>
+<p><span class="math display">\[MatureAbund = \frac{getAbundBetween(maturation, LifeSpan)}{\frac{MaxAbund}{5}}\]</span> <br/></p>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Fecundity :</strong><br />
+The new number of seeds that will be produced is also affected by the habitat. If the habitat is not favorable, then the fecundity is null and no seeds are produced.</li>
+</ol>
+<p><span class="math display">\[fecundity = min(1, MatureAbund) * PotentialFecund * getEnvFecund()\]</span> with <span class="math inline">\(PotentialFecund = 100\)</span>.</p>
+<p><br/> <br/></p>
+</div>
+<div id="code-specificities" class="section level4">
+<h4>!! Code specificities !!</h4>
+<p><br/></p>
+<ul>
+<li><strong>Save raster abundances :</strong><br />
+The fraction must be <span class="math inline">\(&gt; 1\)</span>, meaning <span class="math inline">\(totalNumAbund(pfg, stratum)\)</span> must be <span class="math inline">\(&gt; GLOBAL\_HIGH\_ABUND\)</span>.</li>
+</ul>
+<span class="math display">\[\begin{align}
+Abund &amp;= 10,000 * \frac{totalNumAbund(pfg, stratum)}{GLOBAL\_HIGH\_ABUND} \\
+Abund &amp;= min(10,000, Abund)
+\end{align}\]</span>
+<p><br/></p>
+<ul>
+<li><strong>Light of strata :</strong></li>
+</ul>
+<p><span class="math display">\[ImmSize * CohortSize * AgeRange\]</span> with AgeRange = old - young, brkStra - young, old - MatAge, MatAge - young</p>
+<p><br/></p>
+<ul>
+<li><strong>Simplify legions :</strong><br />
+Round abundances to save space, by setting size to :</li>
+</ul>
+<p><span class="math display">\[min(MAX\_BY\_COHORT, \frac{size(pfg, cohort) + 5000}{10,000^2})\]</span></p>
+<p><br/></p>
+<ul>
+<li><strong>Set light resources :</strong></li>
+</ul>
+<span class="math display">\[\begin{align}
+&amp;\text{if ( } abund &lt; GLOBAL\_MEDIUM\_RESOURCES\_TRESH \text{ )} \\
+&amp;\{ \\
+&amp; light = HIGH \\
+&amp;\} \text{ else if ( } abund &lt; GLOBAL\_LOW\_RESOURCES\_TRESH \text{ )} \\
+&amp;\{ \\
+&amp; light = MEDIUM \\
+&amp;\} \text{ else} \\
+&amp;\{ \\
+&amp; light = LOW \\
+&amp;\}
+\end{align}\]</span>
+</div>
 </div>
 </div>
 
