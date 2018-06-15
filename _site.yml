@@ -22,17 +22,17 @@ navbar:
     - text: "Tutorials"
       icon: ion-settings
       menu:
-        - text: "Installation"
+        - text: "INSTALLATION"
         - text: "Get FATE-HD"
           href: 1a_fate-hd_tutorial_INSTALLATION.html
         - text: "---------"
-        - text: "Getting started"
-        - text: "Page C"
-          #href: page_c.html
-        - text: "Page D"
+        - text: "GETTING STARTED"
+        - text: "Run a simulation"
+          href: 1b_fate-hd_tutorial_GETTING_STARTED.html
+        - text: "Use a module"
           #href: page_d.html
         - text: "---------"
-        - text: "Datasets"
+        - text: "DATASETS"
         - text: "Page C"
           #href: page_c.html
     - text: "Graphics"

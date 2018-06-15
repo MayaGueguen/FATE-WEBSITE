@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>FATE-HD tutorial - Getting Started</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">FATE-HD</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="publications.html">
+    <span class="ion ion-document-text"></span>
+     
+    Publications
+  </a>
+</li>
+<li>
+  <a href="framework.html">
+    <span class="fa fa-cogs"></span>
+     
+    Modelling Framework
+  </a>
+</li>
+<li class="dropdown-header"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-settings"></span>
+     
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">INSTALLATION</li>
+    <li>
+      <a href="1a_fate-hd_tutorial_INSTALLATION.html">Get FATE-HD</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">GETTING STARTED</li>
+    <li>
+      <a href="1b_fate-hd_tutorial_GETTING_STARTED.html">Run a simulation</a>
+    </li>
+    <li class="dropdown-header">Use a module</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">DATASETS</li>
+    <li class="dropdown-header">Page C</li>
+  </ul>
+</li>
+<li>
+  <a href="graphics.html">
+    <span class="ion ion-ios-pulse-strong"></span>
+     
+    Graphics
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a>
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://sourceforge.net/projects/biomove/">
+    <span class="fa fa-code"></span>
+     
+    SourceForge
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">FATE-HD tutorial - Getting Started</h1>
+
+</div>
+
+
+<p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></p>
+<p><br/> <br/></p>
+<p>“<em>The recurring suggestions are that models should explicitly (i) include spatiotemporal dynamics; (ii) consider multiple species in interactions and (iii) account for the processes shaping biodiversity distribution.</em>”</p>
+<p><code>FATE-HD</code> is a “<em>a biodiversity model that meets this challenge at regional scale by combining phenomenological and process-based approaches and using well-defined plant functional group</em>”. (<a href="http://www.will.chez-alice.fr/pdf/BoulangeatGCB2014.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
+<p><br/> <br/></p>
+<div id="what-fate-hd-needs-to-be-run" class="section level1">
+<h1>What FATE-HD needs to be run?</h1>
+<p><br/></p>
+<div id="the-different-type-of-parameters-and-flags" class="section level3">
+<h3><i class="fa fa-copy"></i> The different type of parameters and <em>flags</em></h3>
+<p><code>FATE-HD</code> requires a quite large number of parameters, which are stored into <code>.txt</code> files, presented to and recovered by the software. These <strong>parameters</strong> can be of 3 types :</p>
+<ol style="list-style-type: decimal">
+<li><strong>Filenames</strong>, to guide the application to other parameter files that should be read</li>
+<li>These filenames either correspond to :
+<ul>
+<li>other parameter files that contain <strong>values</strong> to be actually read and used</li>
+<li><strong>raster</strong> files, with the extension <code>.tif</code> (lighter) or <code>.img</code></li>
+</ul></li>
+</ol>
+<p><br/></p>
+</div>
+<div id="how-to-produce-all-these-parameters-files" class="section level3">
+<h3><i class="fas fa-wrench"></i> How to produce all these parameters files ?</h3>
+<p><a href="https://mayagueguen.github.io/RFate/">RFate</a> is a <a href="https://www.r-project.org/">R</a> package available on <a href="https://github.com/MayaGueguen/RFate">github</a> and designed to provide support function to the <code>FATE-HD</code> software.</p>
+<p>It contains documentation and functions to create and organize all input files required by the model, as well as scripts to help analyze the resulting outputs.</p>
+<p><br/></p>
+</div>
+<div id="the-fate-hd-friendly-directory-organization" class="section level3">
+<h3><i class="fas fa-folder-open"></i> The FATE-HD friendly directory organization</h3>
+<p>As <code>FATE-HD</code> needs quite a lot of parameters given into different parameter files, it is important to organize them in a clear and intuitive way.</p>
+<p>While this is not mandatory to run a <code>FATE-HD</code> simulation, a specific and methodical folder architecture can be obtained with <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.skeletonDirectory.html">this function</a> from the <a href="https://mayagueguen.github.io/RFate/">RFate</a> package.</p>
+<p>A good way to start is to create this skeleton directory, and then copy or create the needed files inside to have all simulation data into the same place.</p>
+<div style="text-align:center">
+<img src="pictures/skeleton_directory.png" />
+</div>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="how-to-run-a-fate-hd-simulation" class="section level1">
+<h1>How to run a FATE-HD Simulation ?</h1>
+<p><br/></p>
+<p>When all data and parameter files have been produced and correctly referred in a <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.params_simulParameters.html"><code>Simul_parameters</code></a> file, a <code>FATE-HD</code> simulation can be run by just typing something like :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">./FATEHDD_6<span class="fl">.0</span>-0_UNIX &lt;path_to_your_ParamSimul_file&gt;</code></pre></div>
+<p>Then the simulation will start, and the software will print messages into the console indicating what the software is doing. Depending on the simulation duration, the size and the resolution of the study area, the number of PFG involved, … running the full simulation <em>could take a while</em>.</p>
+<p><strong>Note :</strong> the folder from which the command is sent must be adapted based on how paths to files have been given :</p>
+<ul>
+<li><p>If all paths are <strong>absolute</strong><br />
+(i.e. including the root, such as <em>/home/username/FATE_simulation/DATA/GLOBAL_PARAMETERS/Global_parameters_V1.txt</em>),<br />
+there should not be any problem. The only requirement then is to run the simulation from the folder containing the <code>FATE-HD</code> executable file, or to also give absolute path for the executable file.</p></li>
+<li><p>If all paths are <strong>relative</strong><br />
+(i.e. starting from a specific folder, such as <em>FATE_simulation/DATA/GLOBAL_PARAMETERS/Global_parameters_V1.txt</em>), then the <code>FATE-HD</code> simulation must be run from this specific folder (i.e. here from the folder containing the <em>FATE_simulation</em> folder).</p></li>
+</ul>
+<p><br/> <br/></p>
+</div>
+<div id="how-to-handle-the-results" class="section level1">
+<h1>How to handle the results ?</h1>
+<p><br/></p>
+<p>Once the simulation is completed, the directory defined under the flag <code>--SAVING_DIR--</code> within the <code>Simul_parameters</code> file must contain the following directories :</p>
+<ul>
+<li><em>ABUND_allPFG_perStrata/</em></li>
+<li><em>ABUND_perPFG_allStrata/</em></li>
+<li><em>ABUND_perPFG_perStrata/</em></li>
+</ul>
+<p>Each of them contains raster files with the amount of shade (which should be considered as a proxy for the vegetation coverage/abundance) contained within each pixel of the study area. The files within each folder show different informations :</p>
+<ul>
+<li><em>ABUND_perPFG_perStrata/</em> : a file represents <strong>one specific year</strong>, and the amount of shade for <strong>a specific PFG</strong> in <strong>a specific stratum</strong></li>
+<li><em>ABUND_allPFG_perStrata/</em> : a file represents <strong>one specific year</strong>, and the amount of shade for <strong>all PFGs</strong> in <strong>a specific stratum</strong></li>
+<li><em>ABUND_perPFG_allStrata/</em> : a file represents <strong>one specific year</strong>, and the amount of shade for <strong>a specific PFG</strong> within <strong>all strata</strong></li>
+</ul>
+<p>These ouputs can then be used as is, or post-treated with functions from the <a href="https://mayagueguen.github.io/RFate/">RFate</a> package to obtain more specific results (e.g. evolution of abundance curves, cover or diversity maps, etc).</p>
+<p><br/> <br/></p>
+<!-- **NOTE :** Sensibility analysis can be done on subset areas to try to optimise these values, but work still need to be done onto this. -->
+<!-- **TO BE KEPT IN MIND :** -->
+<!--   - In case one wishes to use `FATE-HD` for modeling dynamics in a specific area, PFGs need to be defined based on the species that occur in that specific area. -->
+<!--   - Suitability maps can be produced using Species Distribution Models (SDM), for example. -->
+<!--   - [Boulangeat, 2012](http://www.will.chez-alice.fr/pdf/Boulangeat2012GCB.pdf "Boulangeat, I., Philippe, P., Abdulhak, S., Douzet, R., Garraud, L., Lavergne, S., Lavorel, S., Van Es J., Vittoz, P. & Thuiller, W. (2012) Optimising plant functional groups for dynamic models of biodiversity: at the crossroad between functional and community ecology. Global Change Biology, 18, 3464-3475.") proposes a framework *to build meaningful PFGs that are representative of plant biodiversity, and consistent with the parameters and processes of hybrid-DVMs* ( Hybrid dynamic vegetation models of intermediate complexity). -->
+</div>
+
+<br/><br/><br/><br/>
+
+<p  style="text-align:center;"><i>Copyright &copy; 2018 Laboratoire d'Ecologie Alpine, Grenoble. All rights reserved.</i></p>
+
+<br/>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
