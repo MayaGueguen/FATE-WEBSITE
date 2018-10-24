@@ -27,6 +27,8 @@ navbar:
           href: 1a_fate-hd_tutorial_INSTALLATION.html
         - text: "---------"
         - text: "GETTING STARTED"
+        - text: "Build PFG"
+          href: 0_RFate_tutorial_PFG.html
         - text: "Run a simulation"
           href: 1b_fate-hd_tutorial_GETTING_STARTED.html
         - text: "Use a module"

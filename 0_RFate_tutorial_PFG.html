@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>FATE-HD tutorial - Building PFG</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">FATE-HD</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="publications.html">
+    <span class="ion ion-document-text"></span>
+     
+    Publications
+  </a>
+</li>
+<li>
+  <a href="framework.html">
+    <span class="fa fa-cogs"></span>
+     
+    Modelling Framework
+  </a>
+</li>
+<li class="dropdown-header"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-settings"></span>
+     
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">INSTALLATION</li>
+    <li>
+      <a href="1a_fate-hd_tutorial_INSTALLATION.html">Get FATE-HD</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">GETTING STARTED</li>
+    <li>
+      <a href="1b_fate-hd_tutorial_GETTING_STARTED.html">Run a simulation</a>
+    </li>
+    <li class="dropdown-header">Use a module</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">DATASETS</li>
+    <li class="dropdown-header">Page C</li>
+  </ul>
+</li>
+<li>
+  <a href="graphics.html">
+    <span class="ion ion-ios-pulse-strong"></span>
+     
+    Graphics
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a>
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://sourceforge.net/projects/biomove/">
+    <span class="fa fa-code"></span>
+     
+    SourceForge
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">FATE-HD tutorial - Building PFG</h1>
+
+</div>
+
+
+<p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></p>
+<p><br/> <br/></p>
+<p>A plant functional group, or <strong>PFG</strong>, is “<em>A set of representative species is classified based on key biological characteristics, to determine groups of species sharing ecological strategies</em>” (<a href="http://j.boulangeat.free.fr/pdfs/Boulangeat2012_GCB_published.pdf" title="Boulangeat, I., Philippe, P., Abdulhak, S., Douzet, R., Garraud, L., Lavergne, S., Lavorel, S., Van Es J., Vittoz, P. and Thuiller, W. Improving plant functional groups for dynamic models of biodiversity: at the crossroad between functional and community ecology. Global Change Biology, 18, 3464-3475.">Boulangeat, 2012</a>).</p>
+<p><br/> <br/></p>
+<p><a href="https://mayagueguen.github.io/RFate/">RFate</a> is a <a href="https://www.r-project.org/">R</a> package available on <a href="https://github.com/MayaGueguen/RFate">github</a> and designed to provide support function to the <code>FATE-HD</code> software.</p>
+<p>It contains documentation and functions to create and organize all input files required by the model, and <strong>building PFG</strong> is the first step to run a <code>FATE-HD</code> simulation. The procedure presented below is based on <code>RFate</code> functions.</p>
+<p><br/> <br/></p>
+<div id="what-are-the-key-steps-of-this-process" class="section level1">
+<h1><i class="fa fa-shoe-prints"></i> What are the key steps of this process ?</h1>
+<p><br/> Since the basic idea of building Functional Group is to gather a lot of elements into a few, this implies two requirements :</p>
+<ul>
+<li>that these elements are not too numerous</li>
+<li>and that they are representative of the studied area, meaning not rare or outlier elements.<br />
+<strong>This is the first step of selecting dominant species.</strong></li>
+</ul>
+<p>In order to identify similarities between selected dominant species in terms of habitat, the climatic or environmental niche of each species is calculated and is compared with all the other dominant species niches.<br />
+<strong>The overlap of species climatic niches is obtained in second step.</strong></p>
+<p>Functional traits related to the fundamental process of growth are retrieved for each dominant species and mixed together to calculate functional distances between species.<br />
+<strong>Overlap of climatic niches and functional distances are combined to form a matrix of species pairwise distances.</strong></p>
+<p>Finally, based on this distance matrix, <strong>species are clustered to find the best combination and obtain Functional Groups.</strong></p>
+<p><br/> <br/></p>
+</div>
+<div id="what-do-you-need" class="section level1">
+<h1><i class="fa fa-shopping-basket"></i> What do you need ?</h1>
+<p><br/></p>
+<div id="selection-of-dominant-species" class="section level3">
+<h3>1. Selection of dominant species</h3>
+<ul>
+<li>Gather <strong>occurrences</strong> for all species within the studied area</li>
+<li>Identify <strong>dominant species</strong> based on abundances and frequençy of sampling</li>
+</ul>
+<p>with the function <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.selectDominant.html">PRE_FATE.selectDominant</a></p>
+<p><br/></p>
+</div>
+<div id="overlap-of-species-climatic-niches" class="section level3">
+<h3>2. Overlap of species climatic niches</h3>
+<p>with either Principal Component Analysis (PCA) or Species Distribution Models (SDM)</p>
+<ul>
+<li><em>Option 1: Principal Component analysis</em>
+<ul>
+<li>Gather <strong>environmental data</strong> for the studied area</li>
+<li>Compute <strong>PCA</strong> over environment to create a <em>climatic space</em></li>
+<li>Calculate the <strong>density of each species</strong> within this <em>climatic space</em> from the PCA</li>
+<li>For each pair of species, compute the <strong>overlap</strong> of the 2 considered species within the <em>climatic space</em></li>
+</ul></li>
+</ul>
+<p><br/></p>
+<ul>
+<li><em>Option 2: Species Distribution Models</em>
+<ul>
+<li>Gather <strong>environmental data</strong> for the studied area</li>
+<li>For each dominant species, compute a <strong>species distribution model</strong> (SDM)<br />
+combining environmental data and occurrences to determine the <em>climatic niche</em> of the species</li>
+<li>With these SDMs, calculate the <strong>niche overlap</strong> of each pair of species</li>
+</ul></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="calculation-of-species-pairwise-distance" class="section level3">
+<h3>3. Calculation of species pairwise distance</h3>
+<p>by combining overlap and functional distances with the function <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.speciesDistance.html">PRE_FATE.speciesDistance</a></p>
+<ul>
+<li>Gather <strong>traits data</strong> for all dominant species within the studied area<br />
+(traits need to be related to fundamental process of growth : light tolerance, dispersal, height…)</li>
+<li>Compute <strong>dissimilarity distances</strong> between pairs of species based on these traits and taking also into account the overlap of the 2 species within the <em>climatic space</em> (see previous step)</li>
+</ul>
+<p><em>For further details about the data, please refer to</em> <a href="http://j.boulangeat.free.fr/pdfs/Boulangeat2012_GCB_published.pdf" title="Boulangeat, I., Philippe, P., Abdulhak, S., Douzet, R., Garraud, L., Lavergne, S., Lavorel, S., Van Es J., Vittoz, P. and Thuiller, W. Improving plant functional groups for dynamic models of biodiversity: at the crossroad between functional and community ecology. Global Change Biology, 18, 3464-3475.">Boulangeat, 2012</a>.</p>
+<p><br/></p>
+</div>
+<div id="clustering-of-species" class="section level3">
+<h3>4. Clustering of species</h3>
+<p>using the <strong>dissimilarity distances</strong> from previous step :</p>
+<ul>
+<li>calculate all possible clusters, and the corresponding evaluation metrics<br />
+with the function <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.speciesClustering_step1.html">PRE_FATE.speciesClustering_step1</a></li>
+<li>choose the best number of clusters from the previous step and find determinant species<br />
+with the function <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.speciesClustering_step2.html">PRE_FATE.speciesClustering_step2</a></li>
+</ul>
+</div>
+</div>
+
+<br/><br/><br/><br/>
+
+<p  style="text-align:center;"><i>Copyright &copy; 2018 Laboratoire d'Ecologie Alpine, Grenoble. All rights reserved.</i></p>
+
+<br/>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
