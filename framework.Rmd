@@ -14,7 +14,7 @@ output:
 <br/>
 <br/>
 
-For more details, please check [Boulangeat, 2014](http://www.will.chez-alice.fr/pdf/BoulangeatGCB2014.pdf "Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.") or the [Publications page](https://mayagueguen.github.io/FATE-WEBSITE/publications.html).
+For more details, please check [Boulangeat, 2014](papers/Boulangeat_2014_GCB.pdf "Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.") or the [Publications page](https://mayagueguen.github.io/FATE-WEBSITE/publications.html).
 
 <br/><br/>
 
@@ -186,7 +186,7 @@ with AgeRange = old - young, brkStra - young, old - MatAge, MatAge - young
 - **Simplify legions :**  
 Round abundances to save space, by setting size to :
 
-$$min(MAX\_BY\_COHORT, \frac{size(pfg, cohort) + 5000}{10,000^2})$$
+$$min(MAX\_BY\_COHORT, \frac{size(pfg, cohort) + 5000}{10,000} * 10,000)$$
 
 <br/>
 

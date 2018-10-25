@@ -32,7 +32,7 @@ navbar:
         - text: "Run a simulation"
           href: 1b_fate-hd_tutorial_GETTING_STARTED.html
         - text: "Use a module"
-          #href: page_d.html
+          href: 1c_fate-hd_tutorial_MODULES.html
         - text: "---------"
         - text: "DATASETS"
         - text: "Page C"
