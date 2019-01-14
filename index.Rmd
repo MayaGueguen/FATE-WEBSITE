@@ -36,10 +36,10 @@ Theoretical concepts and implementation loops and methods are detailed in this s
 
 ### [`FATE-HD` on SourceForge](https://sourceforge.net/projects/biomove/) <img src="pictures/link.png" alt="Link to" style="width:20px;height:20px;">
 
-Two versions are available online :
+Two folders are available online :
 
-- a **STABLE** one : this is the one that can be downloaded if by-hand-installation is required.
-- a **DEVEL** (development) one : we do not advise to use this one as it might be subject to bugs or missing elements.
+- a **STABLE** one : this one contains several folders for specific software releases, that can be downloaded if by-hand-installation is required.
+- a **DEVEL** (development) one : this one contains folders with the current version in development, that might be subject to bugs or missing elements.
 
 
 ### [`RFate` package](https://mayagueguen.github.io/RFate/) <img src="pictures/link.png" alt="Link to" style="width:20px;height:20px;">

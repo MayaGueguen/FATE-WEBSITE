@@ -23,12 +23,13 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -65,7 +66,29 @@ code > span.do { color: #7f9f7f; } /* Documentation */
 code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
 code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
 code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -122,8 +145,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -139,7 +168,6 @@ body {
   padding-top: 59px;
   margin-top: -59px;
 }
-
 .section h2 {
   padding-top: 59px;
   margin-top: -59px;
@@ -159,6 +187,43 @@ body {
 .section h6 {
   padding-top: 59px;
   margin-top: -59px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -180,18 +245,77 @@ $(document).ready(function () {
 });
 </script>
 
-
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -399,12 +523,12 @@ div.tocify {
 
 <p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></p>
 <p><br/> <br/></p>
-<p><code>FATE-HD</code> model is built like a <a href="https://i.pinimg.com/originals/47/7b/f3/477bf37d4d316285108b62e2e852a014.gif">LEGO</a> tool : it has a <strong>core module</strong>, which corresponds to the fundamental light succession, and then can be complemented with <strong>other modules</strong>. Some of these modules can be regarded as equally important as the core module (from an ecological likelihood point of view), and some others are more specific.</p>
+<p><code>FATE-HD</code> model is built like a <a href="https://i.pinimg.com/originals/47/7b/f3/477bf37d4d316285108b62e2e852a014.gif">LEGO</a> tool : it has a <strong>core module</strong>, which corresponds to the fundamental succession, and then can be complemented with <strong>other modules</strong>. Some of these modules can be regarded as equally important as the core module (from an ecological likelihood point of view, like light, dispersal, soil, etc), and some others are more specific (drought, aliens, fire, etc).</p>
 <p><br/> <br/></p>
 <div id="core-module-succession" class="section level1">
-<h1><span style="font-size:35px;"><i class="fa fa-sun"></i> <code>CORE</code> module (succession)</span></h1>
+<h1><span style="font-size:35px;"><i class="fa fa-heart"></i> <code>CORE</code> module (succession)</span></h1>
 <p><br/></p>
-<p>“<em>Based on the ‘FATE’ model (Moore &amp; Noble, 1990), it describes the within-pixel succession dynamics in an annual time step. Vegetation height is represented by a limited number of strata to incorporate the shading process (Fig. 1a). Within a pixel, the light resource for each stratum is calculated from the total abundance of all PFGs across all the upper strata. Within-pixel spatial heterogeneity in light resources is not taken into consideration, which is an important criterion for selecting the appropriate</em>” (<a href="papers/Boulangeat_2014_GCB.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
+<p>“<em>Based on the ‘FATE’ model (Moore &amp; Noble, 1990), it describes the within-pixel succession dynamics in an annual time step. […] Five processes describe PFG demography (germination, recruitment, growth, survival and fecundity, see Table 1).</em>” (<a href="papers/Boulangeat_2014_GCB.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
 <p><br/></p>
 <div id="required-parameters" class="section level4">
 <h4>Required parameters</h4>
@@ -451,10 +575,30 @@ MAX_ABUNDANCE <span class="dv">3</span>
 IMM_SIZE <span class="dv">1</span>
 CHANG_STR_AGES <span class="dv">0</span> <span class="dv">14</span> <span class="dv">38</span> <span class="dv">110</span> <span class="dv">344</span>
 MODE_DISPERS <span class="dv">1</span>
-ACTIVE_GERM <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span>
-SHADE_TOL <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>
 SEED_POOL_LIFE <span class="dv">0</span> <span class="dv">0</span>
 SEED_DORMANCY <span class="dv">0</span></code></pre></div></li>
+</ul>
+<p><br/></p>
+</div>
+</div>
+<div id="light-module" class="section level1">
+<h1><span style="font-size:35px;"><i class="fa fa-sun"></i> <code>LIGHT</code> module </span></h1>
+<p><br/></p>
+<p>“<em>Vegetation height is represented by a limited number of strata to incorporate the shading process (Fig. 1a). Within a pixel, the light resource for each stratum is calculated from the total abundance of all PFGs across all the upper strata. Within-pixel spatial heterogeneity in light resources is not taken into consideration</em>” (<a href="papers/Boulangeat_2014_GCB.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
+<p><br/></p>
+<div id="required-parameters-1" class="section level4">
+<h4>Required parameters</h4>
+<ul>
+<li><p>In <em>ParamSimulation</em> file :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_LIGHT_PARAMS--
+FATE_simulation/DATA/PFGS/SUCC/SUCC_PFG1.txt
+FATE_simulation/DATA/PFGS/SUCC/SUCC_PFG2.txt</code></pre></div></li>
+<li><p>In <em>Global Parameters</em> file :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_LIGHT_COMPETITION <span class="dv">1</span></code></pre></div></li>
+<li><p>In <em>SUCCESSION</em> files :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+ACTIVE_GERM <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span>
+SHADE_TOL <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></code></pre></div></li>
 </ul>
 <p><br/></p>
 </div>
@@ -464,7 +608,7 @@ SEED_DORMANCY <span class="dv">0</span></code></pre></div></li>
 <p><br/></p>
 <p>“<em>The quantity of produced seeds depends on the abundances of mature PFGs and their habitat suitability. A seed dispersal model determines seed inflow in each pixel (Fig. 1c). From the source, three circles of influence are defined using distance parameters. In the first circle, 50% of the seeds are distributed uniformly. In the second circle, 49% of the seeds are distributed with the same concentration as in the first circle but by pairs of pixels, simulating the spatial autocorrelation of dispersed seeds. In the third circle, 1% of the seeds fall into a random pixel. This seed dispersal model behaves similar to a continuous kernel function (see Fig.S1a) but is very effective and requires only a few parameters (Vittoz &amp; Engler, 2007).</em>” (<a href="papers/Boulangeat_2014_GCB.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
 <p><br/></p>
-<div id="required-parameters-1" class="section level4">
+<div id="required-parameters-2" class="section level4">
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
@@ -485,7 +629,7 @@ MODE_DISPERS <span class="dv">1</span></code></pre></div></li>
 <p><br/></p>
 <p>“<em>Modelling how habitat suitability affects species population dynamics is tricky given the limited knowledge on the type and form of this relationship. Gallien et al. (2010) suggested a parsimonious approach using only presence-absences or a linear link. In FATE-HD, the probability for recruitment and seed production occurring is calculated every year according to the habitat suitability of the PFG in the pixel in question. Over time, the probability of presence is thus linearly related to fecundity and establishment. Accounting for interannual variability allows species coexistence via temporal niches. Mortality does not depend on habitat suitability, as the immediate effects of annual abiotic conditions on plant mortality are not clear in the literature. Habitat suitability for each PFG can be obtained from various sources such as correlative species distribution models (Guisan &amp; Thuiller, 2005) or mechanistic niche models (Chuine &amp; Beaubien, 2001).</em>” (<a href="papers/Boulangeat_2014_GCB.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
 <p><br/></p>
-<div id="required-parameters-2" class="section level4">
+<div id="required-parameters-3" class="section level4">
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
@@ -520,7 +664,7 @@ HABSUIT_OPTION <span class="dv">1</span></code></pre></div></li>
 <p><br/></p>
 <p>“<em>Several disturbance models can be parameterized to remove vegetation, affect fecundity, kill seeds or activate dormant seeds according to each PFG’s tolerance or sensitivity to the given disturbance. (Fig. 1d).</em>” (<a href="papers/Boulangeat_2014_GCB.pdf" title="Boulangeat, I., Georges, D., Thuiller, W., FATE-HD: A spatially and temporally explicit integrated model for predicting vegetation structure and diversity at regional scale. Global Change Biology, 20, 2368–2378.">Boulangeat, 2014</a>)</p>
 <p><br/></p>
-<div id="required-parameters-3" class="section level4">
+<div id="required-parameters-4" class="section level4">
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
@@ -565,7 +709,7 @@ ACTIVATED_SEED <span class="dv">0</span> <span class="dv">0</span> <span class="
 <div id="habitat-stability-module" class="section level1">
 <h1><span style="font-size:20px;"><i class="fa fa-balance-scale"></i> <code>HABITAT STABILITY</code> module</span></h1>
 <p><br/></p>
-<div id="required-parameters-4" class="section level4">
+<div id="required-parameters-5" class="section level4">
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
@@ -592,7 +736,7 @@ NB_HABITATS <span class="dv">5</span></code></pre></div></li>
 <p><br/></p>
 <p>“<em>Fig. 1. Drought simulation scheme. For each year i, a PFG’s habitat suitability (HS; step 1) and drought effects (step 2) are evaluated within a pixel j. If HS ij or Din ij are below reference values, PFG fecundity and recruitment are set to 0. Additionally, if Din ij crosses the reference value, one drought year is added to the PFG’s cumulative drought effects counter. Severe drought effects occur if conditions 2.3.1 ii or 2.3.2 are met, consisting in immediate and post-drought effects. Otherwise, only moderate drought effects are caused (2.1 and 2.3.1 i). Drought recovery is simulated by subtracting one or two drought events from the cumulative drought effects counter. […] See Table S3 in Appendix S2 for full parameter list and refer to main text for further details.</em>” (<a href="papers/Barros_2017_Journal_Applied_Ecology.pdf" title="Barros, C., Guéguen, M., Douzet, R., Carboni, M., Boulangeat, I., Zimmermann, N.E., Münkemüller, T., Thuiller, W. and Mori, A. (2017), Extreme climate events counteract the effects of climate and land‐use changes in Alpine tree lines. Journal of Applied Ecology, 54: 39-50.">Barros, 2017</a>)</p>
 <p><br/></p>
-<div id="required-parameters-5" class="section level4">
+<div id="required-parameters-6" class="section level4">
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
@@ -640,7 +784,7 @@ DROUGHT_RECOVERY <span class="dv">1</span></code></pre></div></li>
 <p><br/></p>
 <p>“<em>We then simulated the introduction of the alien PFGs through annual seeding. The sites of simulated introduction were based on a map of the Human Footprint […] an index combining information on land-use, population density and transportation network (including mountain footpaths). As such it represents an excellent proxy of potential local propagule pressure for introduced species […] In the current propagule pressure scenario, introductions were a proportion of a set maximum number of seeds depending on the human footprint value in each pixel (i.e. highest introduction intensity in the most densely populated centres, and lowest introduction intensity along mountain footpaths; see Appendix S2 for maps and for details). In the increased propagule pressure scenario, the maximum introduction level was applied in all areas that had a non-zero human footprint (simulating a maximum exploitation of all areas suitable to humans).</em>” (<a href="papers/Carboni_2017_Global_Change_Biology.pdf" title="Carboni M, Guéguen M, Barros C, et al. Simulating plant invasion dynamics in mountain ecosystems under global change scenarios. Glob Change Biol. 2018;24:e289–e302.">Carboni, 2017</a>)</p>
 <p><br/></p>
-<div id="required-parameters-6" class="section level4">
+<div id="required-parameters-7" class="section level4">
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
@@ -682,8 +826,27 @@ FREQ_ALIENS </code></pre></div></li>
 </div>
 </div>
 <div id="soil-module" class="section level1">
-<h1><span style="font-size:20px;"><i class="fab fa-nutritionix"></i> <code>SOIL</code> module</span></h1>
+<h1><span style="font-size:20px;"><i class="fas fa-recycle"></i> <code>SOIL</code> module</span></h1>
 <p><br/></p>
+<p>“<em>To be written</em>” ()</p>
+<p><br/></p>
+<div id="required-parameters-8" class="section level4">
+<h4>Required parameters</h4>
+<ul>
+<li><p>In <em>ParamSimulation</em> file :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_SOIL_PARAMS--
+FATE_simulation/DATA/PFGS/SOIL/SOIL_PFG1.txt
+FATE_simulation/DATA/PFGS/SOIL/SOIL_PFG2.txt</code></pre></div></li>
+<li><p>In <em>Global Parameters</em> file :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_SOIL_COMPETITION <span class="dv">1</span>
+NB_SOIL_CATEGORIES <span class="dv">5</span></code></pre></div></li>
+<li><p>In <em>SOIL</em> files :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME C1
+SOIL_CONTRIB <span class="fl">5.5</span>
+SOIL_TOL <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span></code></pre></div></li>
+</ul>
+<p><br/></p>
+</div>
 </div>
 <div id="fire-module" class="section level1">
 <h1><span style="font-size:20px;"><i class="fa fa-fire"></i> <code>FIRE</code> module</span></h1>

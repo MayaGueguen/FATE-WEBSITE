@@ -50,7 +50,7 @@ Only three age classes are considered : germinant, juvenile and mature.
 
 The **recruitment** is influenced by the habitat suitability and the biotic interactions.
 
-**Mortality** occurs when light conditions are not favorable or when the PFG completes its life span.
+**Mortality** occurs when light or soil conditions are not favorable or when the PFG completes its life span.
 
 In addition, the disturbance regime directly affects juvenile or mature PFG and may for instance result in PFG death, impede **seed production** by reducing mature PFG age to N-1, or **revitalize senescents** by reducing their age to M-1.
 
@@ -147,9 +147,9 @@ The condition $abund < 10 * MaxAbund$ helps regulate populations : new individua
 <br/>
 
 5. **Mature abundance :**  
-The number of mature individuals (i.e. whose age is between maturity and lifetime) is corrected by the maximum capacity of each PFG ($MaxAbund$).
+The number of mature individuals (i.e. whose age is between maturity and lifetime) is corrected by the maximum capacity of each PFG ($MaxAbund$) within each stratum.
 
-$$MatureAbund = \frac{getAbundBetween(maturation, LifeSpan)}{\frac{MaxAbund}{5}}$$
+$$MatureAbund = \frac{getAbundBetween(maturation, LifeSpan)}{\frac{MaxAbund}{nbStrata}}$$
 <br/>
 
 6. **Fecundity :**  
