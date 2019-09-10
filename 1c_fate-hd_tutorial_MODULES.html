@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -81,7 +82,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -124,9 +125,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -140,7 +139,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -245,8 +243,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -303,48 +299,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = false;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -393,8 +350,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -409,6 +364,16 @@ div.tocify {
 }
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -534,18 +499,16 @@ div.tocify {
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--GLOBAL_PARAMS--
-FATE_simulation/DATA/Global_parameters.txt
---NAMESPACE_CONSTANTS--
-FATE_simulation/DATA/Namespace_constants.txt
---SAVE_DIR--
-FATE_simulation/RESULTS/SIMUL_1/
---MASK--
-FATE_simulation/DATA/MASK/mask.tif
---PFG_LIFE_HISTORY_PARAMS--
-FATE_simulation/DATA/PFGS/SUCC/SUCC_PFG1.txt
-FATE_simulation/DATA/PFGS/SUCC/SUCC_PFG2.txt
---END_OF_FILE--</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>GLOBAL_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>Global_parameters.txt
+<span class="op">--</span>SAVE_DIR<span class="op">--</span>
+FATE_simulation<span class="op">/</span>RESULTS<span class="op">/</span>SIMUL_<span class="dv">1</span><span class="op">/</span>
+<span class="op">--</span>MASK<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>mask.tif
+<span class="op">--</span>PFG_LIFE_HISTORY_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>SUCC<span class="op">/</span>SUCC_PFG1.txt
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>SUCC<span class="op">/</span>SUCC_PFG2.txt
+<span class="op">--</span>END_OF_FILE<span class="op">--</span></code></pre></div>
 <p>The years for which must be saved abundance maps for each PFG can also be indicated,<br />
 as well as years to save a copy of the simulation object :</p>
 <pre><code>--ARRAYS_SAVING_YEARS--
@@ -557,26 +520,38 @@ FATE_simulation/DATA/SAVE/objectsSavingYears.txt</code></pre></li>
 NB_STRATUM <span class="dv">6</span>
 SIMULATION_DURATION <span class="dv">950</span>
 SEEDING_DURATION <span class="dv">300</span>
-SEEDING_TIMESTEP <span class="dv">1</span></code></pre></div>
+SEEDING_TIMESTEP <span class="dv">1</span>
+SEEDING_INPUT
+MAX_BY_COHORT <span class="dv">5000000</span>
+MAX_ABUND_LOW <span class="dv">1000000</span>
+MAX_ABUND_MEDIUM <span class="dv">5000000</span>
+MAX_ABUND_HIGH <span class="dv">8000000</span></code></pre></div>
 <p>The number of computer resources can also be given : <code>NB_CPUS 6</code>.<br />
 If so, some parts of the main loop of the code will be parallelized on the amount of indicated resources.</p></li>
-<li><p>In <em>Namespace constants</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GLOBAL_LOW_ABUND <span class="dv">1000000</span>
-GLOBAL_MEDIUM_ABUND <span class="dv">5000000</span>
-GLOBAL_HIGH_ABUND <span class="dv">8000000</span>
-GLOBAL_LOW_RESOURCES_THRESH <span class="dv">19000000</span>
-GLOBAL_MEDIUM_RESOURCES_THRESH <span class="dv">13000000</span>
-GLOBAL_MAX_BY_COHORT <span class="dv">5000000</span></code></pre></div></li>
+</ul>
+<!-- - In *Namespace constants* file : -->
+<!-- ```R -->
+<!-- GLOBAL_LOW_ABUND 1000000 -->
+<!-- GLOBAL_MEDIUM_ABUND 5000000 -->
+<!-- GLOBAL_HIGH_ABUND 8000000 -->
+<!-- GLOBAL_LOW_RESOURCES_THRESH 19000000 -->
+<!-- GLOBAL_MEDIUM_RESOURCES_THRESH 13000000 -->
+<!-- GLOBAL_MAX_BY_COHORT 5000000 -->
+<!-- ``` -->
+<ul>
 <li><p>In <em>SUCCESSION</em> files :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+TYPE P
+HEIGHT <span class="dv">1200</span>
 MATURITY <span class="dv">45</span>
 LONGEVITY <span class="dv">451</span>
+STRATA <span class="dv">5</span>
 MAX_ABUNDANCE <span class="dv">3</span>
 IMM_SIZE <span class="dv">1</span>
 CHANG_STR_AGES <span class="dv">0</span> <span class="dv">14</span> <span class="dv">38</span> <span class="dv">110</span> <span class="dv">344</span>
-MODE_DISPERS <span class="dv">1</span>
 SEED_POOL_LIFE <span class="dv">0</span> <span class="dv">0</span>
-SEED_DORMANCY <span class="dv">0</span></code></pre></div></li>
+SEED_DORMANCY <span class="dv">0</span>
+POTENTIAL_FECUNDITY <span class="dv">100</span></code></pre></div></li>
 </ul>
 <p><br/></p>
 </div>
@@ -590,13 +565,16 @@ SEED_DORMANCY <span class="dv">0</span></code></pre></div></li>
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_LIGHT_PARAMS--
-FATE_simulation/DATA/PFGS/SUCC/SUCC_PFG1.txt
-FATE_simulation/DATA/PFGS/SUCC/SUCC_PFG2.txt</code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>PFG_LIGHT_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>SUCC<span class="op">/</span>SUCC_PFG1.txt
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>SUCC<span class="op">/</span>SUCC_PFG2.txt</code></pre></div></li>
 <li><p>In <em>Global Parameters</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_LIGHT_COMPETITION <span class="dv">1</span></code></pre></div></li>
-<li><p>In <em>SUCCESSION</em> files :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_LIGHT_COMPETITION <span class="dv">1</span>
+LIGHT_THRESH_LOW <span class="dv">19000000</span>
+LIGHT_THRESH_MEDIUM <span class="dv">13000000</span></code></pre></div></li>
+<li><p>In <em>LIGHT</em> files :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+LIGHT <span class="dv">4</span>
 ACTIVE_GERM <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span>
 SHADE_TOL <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></code></pre></div></li>
 </ul>
@@ -612,14 +590,15 @@ SHADE_TOL <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_DISPERSAL_PARAMS--
-FATE_simulation/DATA/PFGS/DISP/DISP_PFG1.txt
-FATE_simulation/DATA/PFGS/DISP/DISP_PFG2.txt</code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>PFG_DISPERSAL_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>DISP<span class="op">/</span>DISP_PFG1.txt
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>DISP<span class="op">/</span>DISP_PFG2.txt</code></pre></div></li>
 <li><p>In <em>Global Parameters</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_DISPERSAL <span class="dv">1</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_DISPERSAL <span class="dv">1</span>
+DISPERSAL_MODE <span class="dv">1</span></code></pre></div></li>
 <li><p>In <em>DISPERSAL</em> files :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DISPERS_DIST <span class="dv">100</span> <span class="dv">500</span> <span class="dv">79000</span>
-MODE_DISPERS <span class="dv">1</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+DISPERS_DIST <span class="dv">100</span> <span class="dv">500</span> <span class="dv">79000</span></code></pre></div></li>
 </ul>
 <p><br/></p>
 </div>
@@ -633,9 +612,9 @@ MODE_DISPERS <span class="dv">1</span></code></pre></div></li>
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_HAB_MASK--
-FATE_simulation/DATA/PFGS/HABSUIT/HS_CA/HS_PFG_0.tif
-FATE_simulation/DATA/PFGS/HABSUIT/HS_CA/HS_PFG2_0.tif</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>PFG_HAB_MASK<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>HABSUIT<span class="op">/</span>HS_CA<span class="op">/</span>HS_PFG1_<span class="fl">0.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>HABSUIT<span class="op">/</span>HS_CA<span class="op">/</span>HS_PFG2_<span class="fl">0.</span>tif</code></pre></div>
 Habitat suitability maps can be changed through simulation time.<br />
 Two supplementary type of files are then needed :</li>
 </ul>
@@ -668,14 +647,14 @@ HABSUIT_OPTION <span class="dv">1</span></code></pre></div></li>
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_DISTURBANCES_PARAMS--
-FATE_simulation/DATA/PFGS/DIST/DIST_PFG1.txt
-FATE_simulation/DATA/PFGS/DIST/DIST_PFG2.txt
---DIST_MASK--
-FATE_simulation/DATA/MASK/mask_noPerturb.tif
-FATE_simulation/DATA/MASK/mask_mowing.tif
-FATE_simulation/DATA/MASK/mask_grazing_level1.tif
-FATE_simulation/DATA/MASK/mask_grazing_level2.tif</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>PFG_DISTURBANCES_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>DIST<span class="op">/</span>DIST_PFG1.txt
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>DIST<span class="op">/</span>DIST_PFG2.txt
+<span class="op">--</span>DIST_MASK<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>mask_noPerturb.tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>mask_mowing.tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>mask_grazing_level1.tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>mask_grazing_level2.tif</code></pre></div>
 Like habitat suitability maps, disturbances maps can be changed through simulation time.<br />
 Two supplementary type of files are then needed :</li>
 </ul>
@@ -697,7 +676,8 @@ NB_DISTURBANCES <span class="dv">4</span>
 NB_SUBDISTURBANCES <span class="dv">4</span>
 FREQ_DISTURBANCES <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></code></pre></div></li>
 <li><p>In <em>DISTURBANCE</em> files :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PROP_KILLED <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+PROP_KILLED <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>
 BREAK_AGE <span class="dv">2</span> <span class="dv">4</span> <span class="dv">10</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">10</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">10</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">10</span>
 RESPR_AGE <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>
 FATES <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">1</span>
@@ -713,18 +693,18 @@ ACTIVATED_SEED <span class="dv">0</span> <span class="dv">0</span> <span class="
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--HAB_MASK--
-FATE_simulation/DATA/MASK/Habitat_1.tif
-FATE_simulation/DATA/MASK/Habitat_2.tif
-FATE_simulation/DATA/MASK/Habitat_3.tif
-FATE_simulation/DATA/MASK/Habitat_4.tif
-FATE_simulation/DATA/MASK/Habitat_5.tif
---HAB_BASELINE_STATS--
-FATE_simulation/DATA/MASK/Habitat_BL_1.tif
-FATE_simulation/DATA/MASK/Habitat_BL_2.tif
-FATE_simulation/DATA/MASK/Habitat_BL_3.tif
-FATE_simulation/DATA/MASK/Habitat_BL_4.tif
-FATE_simulation/DATA/MASK/Habitat_BL_5.tif</code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>HAB_MASK<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_<span class="fl">1.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_<span class="fl">2.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_<span class="fl">3.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_<span class="fl">4.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_<span class="fl">5.</span>tif
+<span class="op">--</span>HAB_BASELINE_STATS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_BL_<span class="fl">1.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_BL_<span class="fl">2.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_BL_<span class="fl">3.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_BL_<span class="fl">4.</span>tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Habitat_BL_<span class="fl">5.</span>tif</code></pre></div></li>
 <li><p>In <em>Global Parameters</em> file :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_HAB_STABILITY <span class="dv">1</span>
 NB_HABITATS <span class="dv">5</span></code></pre></div></li>
@@ -740,11 +720,11 @@ NB_HABITATS <span class="dv">5</span></code></pre></div></li>
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_DROUGHT_PARAMS--
-FATE_simulation/DATA/PFGS/DIST/DROUGHT_PFG1.txt
-FATE_simulation/DATA/PFGS/DIST/DROUGHT_PFG2.txt
---MOIST_MASK--
-FATE_simulation/DATA/MASK/moistureIndex_init.tif</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>PFG_DROUGHT_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>DIST<span class="op">/</span>DROUGHT_PFG1.txt
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>DIST<span class="op">/</span>DROUGHT_PFG2.txt
+<span class="op">--</span>MOIST_MASK<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>moistureIndex_init.tif</code></pre></div>
 Like habitat suitability or disturbances maps, the moisture index map can be changed through simulation time.<br />
 Two supplementary type of files are then needed :</li>
 </ul>
@@ -766,12 +746,13 @@ NB_SUBDROUGHT <span class="dv">4</span>
 CHRONO_POST_DROUGHT <span class="dv">0</span>
 CHRONO_CURR_DROUGHT <span class="dv">1</span></code></pre></div></li>
 <li><p>In <em>DROUGHT</em> files :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PROP_KILLED <span class="dv">0</span> <span class="dv">0</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+PROP_KILLED <span class="dv">0</span> <span class="dv">0</span>
 BREAK_AGE <span class="dv">1</span> <span class="dv">5</span> <span class="dv">26</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">26</span>
 RESPR_AGE <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">26</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">26</span>
 FATES <span class="dv">6</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span>
 ACTIVATED_SEED <span class="dv">0</span> <span class="dv">0</span>
-DROUGHT_SD -<span class="fl">11.50406848</span> -<span class="fl">12.3335733</span>
+DROUGHT_SD <span class="op">-</span><span class="fl">11.50406848</span> <span class="op">-</span><span class="fl">12.3335733</span>
 COUNT_MOD_TO_SEV <span class="dv">3</span>
 COUNT_SEV_MORT <span class="dv">3</span>
 DROUGHT_RECOVERY <span class="dv">1</span></code></pre></div></li>
@@ -788,10 +769,10 @@ DROUGHT_RECOVERY <span class="dv">1</span></code></pre></div></li>
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--ALIENS_MASK--
-FATE_simulation/DATA/MASK/NoIntroduction.tif
-FATE_simulation/DATA/MASK/Introduction_ALIEN2.tif
-FATE_simulation/DATA/MASK/Introduction_ALIEN3.tif</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>ALIENS_MASK<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>NoIntroduction.tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Introduction_ALIEN2.tif
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>MASK<span class="op">/</span>Introduction_ALIEN3.tif</code></pre></div>
 Like habitat suitability or disturbances maps, aliens introduction masks can be changed through simulation time.<br />
 Two supplementary type of files are then needed :</li>
 </ul>
@@ -834,16 +815,18 @@ FREQ_ALIENS </code></pre></div></li>
 <h4>Required parameters</h4>
 <ul>
 <li><p>In <em>ParamSimulation</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">--PFG_SOIL_PARAMS--
-FATE_simulation/DATA/PFGS/SOIL/SOIL_PFG1.txt
-FATE_simulation/DATA/PFGS/SOIL/SOIL_PFG2.txt</code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">--</span>PFG_SOIL_PARAMS<span class="op">--</span>
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>SOIL<span class="op">/</span>SOIL_PFG1.txt
+FATE_simulation<span class="op">/</span>DATA<span class="op">/</span>PFGS<span class="op">/</span>SOIL<span class="op">/</span>SOIL_PFG2.txt</code></pre></div></li>
 <li><p>In <em>Global Parameters</em> file :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_SOIL_COMPETITION <span class="dv">1</span>
-NB_SOIL_CATEGORIES <span class="dv">5</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DO_SOIL_COMPETITION <span class="dv">1</span></code></pre></div></li>
 <li><p>In <em>SOIL</em> files :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME C1
-SOIL_CONTRIB <span class="fl">5.5</span>
-SOIL_TOL <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NAME PFG1
+SOIL_CONTRIB <span class="fl">2.4</span>
+SOIL_LOW <span class="dv">1</span>
+SOIL_HIGH <span class="dv">4</span>
+ACTIVE_GERM <span class="dv">8</span> <span class="dv">10</span> <span class="dv">5</span>
+SOIL_TOL <span class="dv">1</span> <span class="dv">10</span> <span class="dv">0</span> <span class="dv">5</span> <span class="dv">10</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">8</span></code></pre></div></li>
 </ul>
 <p><br/></p>
 </div>
@@ -876,6 +859,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
