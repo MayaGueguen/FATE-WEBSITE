@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -81,7 +82,7 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -124,9 +125,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -140,7 +139,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -245,8 +243,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -303,48 +299,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = false;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -393,8 +350,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -409,6 +364,16 @@ div.tocify {
 }
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -554,7 +519,7 @@ div.tocify {
 <p>While this is not mandatory to run a <code>FATE-HD</code> simulation, a specific and methodical folder architecture can be obtained with <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.skeletonDirectory.html">this function</a> from the <a href="https://mayagueguen.github.io/RFate/">RFate</a> package.</p>
 <p>A good way to start is to create this skeleton directory, and then copy or create the needed files inside to have all simulation data into the same place.</p>
 <div style="text-align:center">
-<img src="pictures/skeleton_directory.png" />
+<img src="pictures/skeleton_directory_2.png" style="width:65.0%" />
 </div>
 <p><br/> <br/></p>
 </div>
@@ -563,7 +528,7 @@ div.tocify {
 <h1>How to run a FATE-HD Simulation ?</h1>
 <p><br/></p>
 <p>When all data and parameter files have been produced and correctly referred in a <a href="https://mayagueguen.github.io/RFate/reference/PRE_FATE.params_simulParameters.html"><code>Simul_parameters</code></a> file, a <code>FATE-HD</code> simulation can be run by just typing something like :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">./FATEHDD_6<span class="fl">.0</span>-0_UNIX &lt;path_to_your_ParamSimul_file&gt;</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">.<span class="op">/</span>FATEHDD_<span class="fl">6.0</span><span class="op">-</span>0_UNIX <span class="op">&lt;</span>path_to_your_ParamSimul_file<span class="op">&gt;</span></code></pre></div>
 <p>Then the simulation will start, and the software will print messages into the console indicating what the software is doing. Depending on the simulation duration, the size and the resolution of the study area, the number of PFG involved, … running the full simulation <em>could take a while</em>.</p>
 <p><strong>Note :</strong> the folder from which the command is sent must be adapted based on how paths to files have been given :</p>
 <ul>
@@ -622,6 +587,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
