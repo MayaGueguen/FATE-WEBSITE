@@ -56,7 +56,7 @@ While this is not mandatory to run a `FATE-HD` simulation, a specific and method
 
 A good way to start is to create this skeleton directory, and then copy or create the needed files inside to have all simulation data into the same place.
 
-<div style="text-align:center">![](pictures/skeleton_directory_2.png){width=65%}</div>
+<div style="text-align:center">![](pictures/skeleton_directory_2.PNG){width=65%}</div>
 
 <br/> <br/>
 
