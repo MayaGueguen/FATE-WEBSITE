@@ -7,11 +7,12 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
-<title></title>
+<title>publications.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -58,9 +59,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -74,7 +73,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -179,8 +177,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -237,48 +233,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -327,8 +284,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -343,6 +298,16 @@ div.tocify {
 }
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -458,10 +423,11 @@ div.tocify {
 <div id="biomove" class="section level1">
 <h1><a href="">BioMove</a></h1>
 <p><br/></p>
-<p><a href="papers/Midgley_2010_Ecography.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2010_Midgley_Ecography.png" alt="Midgley 2010 Ecography" style="width:500px"> </a></p>
+<p><a href="papers/Moore_Noble_1990_JEM.pdf" class="download" title="Download as PDF"> <img src="pictures/art_1990_Moore_Noble_JEM.png" alt="Moore & Noble 1990 Journal of Environmental Management" style="width:350px"> </a> <a href="papers/Midgley_2010_Ecography.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2010_Midgley_Ecography.png" alt="Midgley 2010 Ecography" style="width:350px"> </a></p>
 <p><br/></p>
 <ul>
 <li>Midgley, G. F., Davies, I. D., Albert, C. H., Altwegg, R. , Hannah, L. , Hughes, G. O., O’Halloran, L. R., Seo, C. , Thorne, J. H. and Thuiller, W. (2010), BioMove – an integrated platform simulating the dynamic response of species to environmental change. Ecography, 33: 612-616. <a href="https://doi.org/10.1111/j.1600-0587.2009.06000.x" class="uri">https://doi.org/10.1111/j.1600-0587.2009.06000.x</a></li>
+<li>Moore, A. D. and Noble I. R. (1990), An individualistic model of vegetation stand dynamics. <a href="https://doi.org/10.1016/s0301-4797(05)80015-5" class="uri">https://doi.org/10.1016/s0301-4797(05)80015-5</a></li>
 </ul>
 <p><br/><br/></p>
 </div>
@@ -479,13 +445,14 @@ div.tocify {
 <div id="applications" class="section level1">
 <h1><a href="">Applications</a></h1>
 <p><br/></p>
-<p><a href="papers/Thuiller_2017_Diversity_Distributions.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2017_Thuiller_DD.png" alt="Thuiller 2017 Diversity Distributions" style="width:350px"> </a> <a href="papers/Carboni_2017_Global_Change_Biology.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2017_Carboni_GCB.png" alt="Carboni 2017 Global Change Biology" style="width:350px"> </a> <a href="papers/Barros_2017_Journal_Applied_Ecology.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2017_Barros_JAE.png" alt="Barros 2017 Journal of Applied Ecology" style="width:350px"> </a> <a href="papers/Barros_2016_Ecology_Letters.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2016_Barros_EL.png" alt="Barros 2016 Ecology Letters" style="width:350px"> </a></p>
+<p><a href="papers/Boulangeat_2014_Ecography.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2014_Boulangeat_Ecography.png" alt="Boulangeat 2014 Ecography" style="width:350px"> </a> <a href="papers/Thuiller_2017_Diversity_Distributions.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2017_Thuiller_DD.png" alt="Thuiller 2017 Diversity Distributions" style="width:350px"> </a> <a href="papers/Carboni_2017_Global_Change_Biology.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2017_Carboni_GCB.png" alt="Carboni 2017 Global Change Biology" style="width:350px"> </a> <a href="papers/Barros_2017_Journal_Applied_Ecology.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2017_Barros_JAE.png" alt="Barros 2017 Journal of Applied Ecology" style="width:350px"> </a> <a href="papers/Barros_2016_Ecology_Letters.pdf" class="download" title="Download as PDF"> <img src="pictures/art_2016_Barros_EL.png" alt="Barros 2016 Ecology Letters" style="width:350px"> </a></p>
 <p><br/></p>
 <ul>
 <li>Barros, C. , Thuiller, W. , Georges, D. , Boulangeat, I. , Münkemüller, T. and Bellwood, D. (2016), N‐dimensional hypervolumes to study stability of complex ecosystems. Ecol Lett, 19: 729-742. <a href="https://doi.org/10.1111/ele.12617" class="uri">https://doi.org/10.1111/ele.12617</a></li>
 <li>Barros, C. , Guéguen, M. , Douzet, R. , Carboni, M. , Boulangeat, I. , Zimmermann, N. E., Münkemüller, T. , Thuiller, W. and Mori, A. (2017), Extreme climate events counteract the effects of climate and land‐use changes in Alpine tree lines. J Appl Ecol, 54: 39-50. <a href="https://doi.org/10.1111/1365-2664.12742" class="uri">https://doi.org/10.1111/1365-2664.12742</a></li>
-<li>Carboni M, Guéguen M, Barros C, et al. Simulating plant invasion dynamics in mountain ecosystems under global change scenarios. Glob Change Biol. 2018;24:e289–e302. <a href="https://doi.org/10.1111/gcb.13879" class="uri">https://doi.org/10.1111/gcb.13879</a></li>
-<li>Thuiller W, Guéguen M, Bison M, et al. Combining point‐process and landscape vegetation models to predict large herbivore distributions in space and time—A case study of Rupicapra rupicapra. Divers Distrib. 2018;24:352–362. <a href="https://doi.org/10.1111/ddi.12684" class="uri">https://doi.org/10.1111/ddi.12684</a></li>
+<li>Boulangeat, I. , Georges, D. , Dentant, C. , Bonet, R. , Van Es, J. , Abdulhak, S. , Zimmermann, N. E. and Thuiller, W. (2014), Anticipating the spatio‐temporal response of plant diversity and vegetation structure to climate and land use change in a protected area. Ecography, 37: 1230-1239. <a href="https://doi:10.1111/ecog.00694" class="uri">https://doi:10.1111/ecog.00694</a></li>
+<li>Carboni M, Guéguen M, Barros C, et al. Simulating plant invasion dynamics in mountain ecosystems under global change scenarios. Glob Change Biol. 2018;24:e289–e302. <a href="https://doi.org/10.1111/gcb.13879" class="uri">https://doi.org/10.1111/gcb.13879</a></li>
+<li>Thuiller W, Guéguen M, Bison M, et al. Combining point‐process and landscape vegetation models to predict large herbivore distributions in space and time—A case study of Rupicapra rupicapra. Divers Distrib. 2018;24:352–362. <a href="https://doi.org/10.1111/ddi.12684" class="uri">https://doi.org/10.1111/ddi.12684</a></li>
 </ul>
 </div>
 
@@ -512,6 +479,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
